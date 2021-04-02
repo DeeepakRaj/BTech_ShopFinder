@@ -426,16 +426,24 @@ echo "Hello AM i visible";
 								<div class="account__form">
 									<div class="input__box">
 										<label>Shop Name <span>*</span></label>
-										<input type="text" required name ="txtShopName" value="<?= isset($_SESSION['info']['txtShopName'] ? $_SESSION['info']['txtShopName'] : ''?>">
+										<input type="text" pattern="[A-Za-z]" required name ="txtShopName" >
+										
+										<!-- value="<?= isset($_SESSION['info']['txtShopName'] ? $_SESSION['info']['txtShopName'] : ''?>" -->
+										
 									</div>
 									<div class="input__box">
 										<label>Shop Phone Number<span>*</span></label>
-										<input type="tel" minlength="10" maxlength="14" required
-											placeholder="Please include your Country Code like +91 xxxxxxxxxx" name ="txtShopPhoneNumber" value="<?= isset($_SESSION['info']['txtShopPhoneNumber'] ? $_SESSION['info']['txtShopPhoneNumber'] : ''?>">
+										<input type="number" minlength="10" maxlength="14" required
+										pattern="[0-9]{14}" placeholder="Please include your Country Code like +91 xxxxxxxxxx" name ="txtShopPhoneNumber">
+										 
+										 <!-- value="<?= isset($_SESSION['info']['txtShopPhoneNumber'] ? $_SESSION['info']['txtShopPhoneNumber'] : ''?>"> -->
+
 									</div>
 									<div class="input__box">
 										<label>Address<span>*</span></label>
-										<input type="text" required placeholder="Street address" name ="txtShopAddress" value="<?= isset($_SESSION['info']['txtShopAddress'] ? $_SESSION['info']['txtShopAddress'] : ''?>">
+										<input type="text" required placeholder="Street address" name ="txtShopAddress" > 
+										
+										<!-- value="<?= isset($_SESSION['info']['txtShopAddress'] ? $_SESSION['info']['txtShopAddress'] : ''?>"> -->
 									</div>
 
 
@@ -444,8 +452,8 @@ echo "Hello AM i visible";
 										<input type="number" required name ="txtShopPostcode" value="<?= isset($_SESSION['info']['txtShopPostcode'] ? $_SESSION['info']['txtShopPostcode'] : ''?>">
 									</div>
 
-
-// need to add php code with value tag.
+<!-- 
+// need to add php code with value tag. -->
 
 
 
