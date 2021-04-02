@@ -3,7 +3,7 @@
 
 session_start();
 
-if (isset($_POST['next']))
+if (isset($_POST['submit']))
 {
     //creating session for perserving form data.
 
@@ -14,14 +14,9 @@ if (isset($_POST['next']))
 
     $key = array_keys($_SESSION['info']);
 
-    if(in_array('next', $keys))
+    if(in_array('submit', $keys))
     {
-        unset($_SESSION['info']['next']);
+        unset($_SESSION['info']['submit']);
     }
 
 }
-
-
-
-
-?>

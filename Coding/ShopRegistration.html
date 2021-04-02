@@ -8,7 +8,7 @@ echo "Hello AM i visible";
 
 
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="en-us">
 
 <head>
 	<meta charset="utf-8">
@@ -426,27 +426,34 @@ echo "Hello AM i visible";
 								<div class="account__form">
 									<div class="input__box">
 										<label>Shop Name <span>*</span></label>
-										<input type="text" required name ="txtShopName">
+										<input type="text" required name ="txtShopName" value="<?= isset($_SESSION['info']['txtShopName'] ? $_SESSION['info']['txtShopName'] : ''?>">
 									</div>
 									<div class="input__box">
 										<label>Shop Phone Number<span>*</span></label>
 										<input type="tel" minlength="10" maxlength="14" required
-											placeholder="Please include your Country Code like +91 xxxxxxxxxx" name ="txtShopPhoneNumber">
+											placeholder="Please include your Country Code like +91 xxxxxxxxxx" name ="txtShopPhoneNumber" value="<?= isset($_SESSION['info']['txtShopPhoneNumber'] ? $_SESSION['info']['txtShopPhoneNumber'] : ''?>">
 									</div>
 									<div class="input__box">
 										<label>Address<span>*</span></label>
-										<input type="text" required placeholder="Street address" name ="txtShopAddress">
+										<input type="text" required placeholder="Street address" name ="txtShopAddress" value="<?= isset($_SESSION['info']['txtShopAddress'] ? $_SESSION['info']['txtShopAddress'] : ''?>">
 									</div>
 
 
 									<div class="input__box">
 										<label>Postcode / ZIP <span>*</span></label>
-										<input type="number" required name ="txtShopPostcode">
+										<input type="number" required name ="txtShopPostcode" value="<?= isset($_SESSION['info']['txtShopPostcode'] ? $_SESSION['info']['txtShopPostcode'] : ''?>">
 									</div>
-									<!-- 									<div class="input__box">
-														<label>Location<span>*</span></label>
-														<input type="text">
-													</div> -->
+
+
+// need to add php code with value tag.
+
+
+
+
+									<!-- <div class="input__box">
+										<label>Location<span>*</span></label>
+										<input type="text">
+									</div> -->
 									<div class="input__box">
 										<label>Location<span>*</span></label>
 										<input type="text" required name ="txtShopLocation">

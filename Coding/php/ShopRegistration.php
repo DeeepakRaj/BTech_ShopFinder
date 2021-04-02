@@ -20,8 +20,3 @@ if (isset($_POST['next']))
     }
 
 }
-
-
-
-
-?>
