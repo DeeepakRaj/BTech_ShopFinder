@@ -1,11 +1,6 @@
 ﻿<?php
-
-include('form1.php');
-
-echo "Hello AM i visible";
-
+session_start();
 ?>
-
 
 <!doctype html>
 <html class="no-js" lang="en-us">
@@ -18,7 +13,7 @@ echo "Hello AM i visible";
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- php -->
-	<link rel="stylesheet" href="php/ShopRegistration.php"> 
+	<link rel="stylesheet" href="../Coding/php/ShopRegistration.php"> 
 
 	<!-- Favicons -->
 	<link rel="shortcut icon" href="images/favicon.ico">
@@ -422,14 +417,14 @@ echo "Hello AM i visible";
 					<div class="col-lg-6 col-12">
 						<div class="my_account_wrapper">
 							<h3 class="account__title" align="center">Shop Registration</h3>
-							<form action="ShopRegistration/Add_More_Shop_Images.html" method="POST">
+							<form action="../Coding/php/ShopRegistration.php" method="POST">
 								<div class="account__form">
 									<div class="input__box">
 										<label>Shop Name <span>*</span></label>
-										<input type="text" pattern="[A-Za-z]" required name ="txtShopName" >
-										
-										<!-- value="<?= isset($_SESSION['info']['txtShopName'] ? $_SESSION['info']['txtShopName'] : ''?>" -->
-										
+										<input type="text"  required name ="txtShopName"																		
+											value="<?php= isset($_SESSION['info']['txtShopName'])? $_SESSION['info']['txtShopName'] : ''?>"
+										>
+
 									</div>
 									<div class="input__box">
 										<label>Shop Phone Number<span>*</span></label>

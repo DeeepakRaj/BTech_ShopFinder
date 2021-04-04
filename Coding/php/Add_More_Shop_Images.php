@@ -19,4 +19,11 @@ if (isset($_POST['submit']))
         unset($_SESSION['info']['submit']);
     }
 
+    header("Location:../index.html");
+
 }
+
+
+?>
+
+
