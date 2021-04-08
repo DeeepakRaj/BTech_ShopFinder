@@ -398,15 +398,14 @@
 									<div class="col-lg-6 col-12">
 										<div class="my_account_wrapper">
 											<h3 class="account__title" align="center">Add More Shop  Images</h3>
-											<form action="../Coding/php/Add_More_Shop_Images.php" method="POST">
+											<form action="../Coding/php/Add_More_Shop_Images.php" method="POST" enctype="multipart/form-data">
 												<div class="account__form">
 													<div class="input__box">
 														<label>Shop Image1 <span>*</span></label>
 														<!-- <input type="text"> -->
-														<input type="file" id="myfile1"  name="myfile" multiple accept="image/jpg, image/jpeg, image/png" >
+														<input type="file" id="myfile1"  name="txtshopImages[]" multiple  >
 													</div>
-                                                    
-                                                    					        						
+                                                                                                        					        						
 													<div class="form__btn" style="padding:3%" align="center"  onclick="location.href='Shop Registration.html'">
 														<button name="submit" >Submit</button>
 													</div>
