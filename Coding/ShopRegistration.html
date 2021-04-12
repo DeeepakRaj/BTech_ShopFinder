@@ -1,4 +1,8 @@
-﻿<!doctype html>
+﻿<?php
+include'/php/ShopRegistration.php';
+?>
+
+<!doctype html>
 <html class="no-js" lang="en-us">
 
 	<head>
@@ -423,7 +427,7 @@
 										<div class="input__box">
 											<label>Shop Phone Number<span>*</span></label>
 											<input type="tel" minlength="10" maxlength="14"  
-											pattern="[0-9]{14}" placeholder="Please include your Country Code like +91 xxxxxxxxxx" name ="txtShopPhoneNumber">
+											 placeholder="Please include your Country Code like +91 xxxxxxxxxx" name ="txtShopPhoneNumber">
 											
 											<!-- value="<?= isset($_SESSION['info']['txtShopPhoneNumber'] ? $_SESSION['info']['txtShopPhoneNumber'] : ''?>"> -->
 
@@ -526,8 +530,8 @@
 											<small> This image will be used as the Primary Shop image</small>
 										</div>
 
-										<div class="form__btn" style="padding:3%" align="center"  onclick="location.href='Shop Registration.html'">
-											<button name="submit" >Submit</button>
+										<div class="form__btn" style="padding:3%" align="center"  >
+											<button name="submit" value="submit" >Submit</button>
 										</div>
 
 									</div>
