@@ -1,22 +1,67 @@
 <?php
 session_start();
-
+$_SESSION['message'] = '';
 include '../php/database/connection.php';
-    if(isset($_POST['submit']))
+    if($_SERVER['REQUEST_METHOD'] == 'POST')
     { 
-        
-        $ShopName = $_POST['txtShopName'];
-        $ShopPhoneNumber = $_POST['txtShopPhoneNumber'];
-        $ShopDescription = $_POST['txtShopDescription'];
-        $ShopAddress = $_POST['txtShopAddress'];
-        $ShopLocation = $_POST['txtShopLocation'];
-        $ShopPostCode = $_POST['txtShopPostcode'];
-        $ShopCategory = $_POST['optShopCategory'];
-        $ShopOpeningTime = $_POST['lstShopOpeningTime'];
-        $ShopClosingTime = $_POST['lstShopClosingTime'];
-        $ShopDuration = $_POST['optShopDuration'];
-        //$ShopImg1 = '../images/registerShopImages/shopMainImg'.$_FILES['txtShopImg1']['name'];
+        /*
+            checking FILES array Data
+            print_r($_FILES);die;
+        */ 
+        //$shopName = $mysqli->real_escape_string($_POST['txtShopName']);
+        //$ShopName =  $mysqli->real_escape_string($_POST['txtShopName']);
+        $ShopPhoneNumber = $mysqli->real_escape_string($_POST['txtShopPhoneNumber']);
+        $ShopDescription = $mysqli->real_escape_string($_POST['txtShopDescription']);
+        $ShopAddress = $mysqli->real_escape_string($_POST['txtShopAddress']);
+        $ShopLocation = $mysqli->real_escape_string($_POST['txtShopLocation']);
+        $ShopPostCode = $mysqli->real_escape_string($_POST['txtShopPostcode']);
+        $ShopCategory = $mysqli->real_escape_string($_POST['optShopCategory']);
+        $ShopOpeningTime = $mysqli->real_escape_string($_POST['lstShopOpeningTime']);
+        $ShopClosingTime = $mysqli->real_escape_string($_POST['lstShopClosingTime']);
+        $ShopDuration = $mysqli->real_escape_string($_POST['optShopDuration']);
+        // adding image
+        $ShopImg1 = $mysqli->real_escape_string('../images/registerShopImages/shopMainImg'.$_FILES['txtShopImg1']['name']);
 
+        //making sure that IMG files are of valid extension
+
+        if(preg_match("!../images/registerShopImages/shopMainImg!",$_FILES['txtShopImg1']['name']))
+        {
+            //copy ShopImg to Folder
+            if(copy($_FILES['txtShopImg1']['tmp_name'],$ShopImg1))
+            {
+                $_SESSION['txtShopName'] = $shopName;
+                $_SESSION['txtShopImg1'] = $ShopImg1;
+
+                // INSERTING DATA
+
+                // $sql = "INSERT INTO ";
+
+                $sql = "INSERT INTO `tblshopregistration`(`ShopImg1`, `ShopName`, `ShopDescription`, `ShopPhone`, `ShopOctime`, `ShopCategary`, `ShopTemp`, `ShopLocation`) VALUES ('$ShopImg1','$ShopName','$ShopDescription','$ShopPhoneNumber','$ShopOpeningTime','$ShopCategory','$ShopDuration','$ShopLocation')";
+
+                // on succesfull query!
+                if($mysqli->query($sql) === true)
+                {
+                    $_SESSION['message'] = 'Shop Registered!';
+                    header("location:../index.html");
+                }
+                else
+                {
+                    $_SESSION['message'] = "Shop NOT Registered";
+                }
+            }
+            else
+            {
+                $_SESSION['message'] = "Failed to upload Shop Image!";
+            }
+        }
+        else
+        {
+            $_SESSION['message'] = "Invalid Image type. Please use PNG, JPG or GIF image file only";
+        }
+
+    }
+
+/*
         $sql = "INSERT INTO tblshopregistration(ShopName, ShopPhoneNumber, ShopDescription, ShopAddress, ShopLocation, ShopPostCode, ShopCategory, ShopOpeningTime, ShopClosingTime, ShopDuration) VALUES ('$ShopName', '$ShopPhoneNumber', '$ShopDescription','$ShopAddress','$ShopLocation','$ShopPostCode','$ShopCategory','$ShopOpeningTime','$ShopClosingTime','$ShopDuration')";
 
         // $sql = "INSERT INTO tblshopregistration(ShopName, ShopPhoneNumber, ShopDescription, ShopAddress, ShopLocation, ShopPostCode, ShopCategory, ShopOpeningTime, ShopClosingTime, ShopDuration, ShopImg1) VALUES ('$ShopName', '$ShopPhoneNumber', '$ShopDescription','$ShopAddress','$ShopLocation','$ShopPostCode','$ShopCategory','$ShopOpeningTime','$ShopClosingTime','$ShopDuration','$ShopImg1')";
@@ -67,11 +112,12 @@ include '../php/database/connection.php';
         {
             echo'<script> alert("Invalid extension of file") </script> ';
         } 
-    */
-    }
+    
+    }*/
     else
     {
-        echo 'error in isset variable\n';
+        $_SESSION['message'] = "Failed to pass data!";
+        // echo 'Data \n';
     }
 
 
