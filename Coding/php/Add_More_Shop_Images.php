@@ -99,7 +99,7 @@ if(isset($_POST['submit'])) {
             
             // $insertQry = "INSERT INTO tblshopregistration (ShopImg1) VALUES ('$finalImg')";
 
-            $insertQry = "INSERT INTO tblshopimage (ImgName,ImgUrl) VALUES ('$fileName','$finalImg')";
+            $insertQry = "INSERT INTO tblshopimage (SrId,ImgName,ImgUrl) VALUES ('','$fileName','$finalImg')";
 
             $data=mysqli_query($conn,$insertQry);
 

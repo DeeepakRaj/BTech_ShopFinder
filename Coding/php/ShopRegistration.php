@@ -2,66 +2,93 @@
 session_start();
 $_SESSION['message'] = '';
 include '../php/database/connection.php';
+
     if($_SERVER['REQUEST_METHOD'] == 'POST')
     { 
+        echo 'Line 7';
         /*
             checking FILES array Data
             print_r($_FILES);die;
         */ 
-        //$shopName = $mysqli->real_escape_string($_POST['txtShopName']);
-        //$ShopName =  $mysqli->real_escape_string($_POST['txtShopName']);
-        $ShopPhoneNumber = $mysqli->real_escape_string($_POST['txtShopPhoneNumber']);
-        $ShopDescription = $mysqli->real_escape_string($_POST['txtShopDescription']);
-        $ShopAddress = $mysqli->real_escape_string($_POST['txtShopAddress']);
-        $ShopLocation = $mysqli->real_escape_string($_POST['txtShopLocation']);
-        $ShopPostCode = $mysqli->real_escape_string($_POST['txtShopPostcode']);
-        $ShopCategory = $mysqli->real_escape_string($_POST['optShopCategory']);
-        $ShopOpeningTime = $mysqli->real_escape_string($_POST['lstShopOpeningTime']);
-        $ShopClosingTime = $mysqli->real_escape_string($_POST['lstShopClosingTime']);
-        $ShopDuration = $mysqli->real_escape_string($_POST['optShopDuration']);
+        
+        $ShopName =  $conn->real_escape_string($_POST['txtShopName']);
+        $ShopPhoneNumber = $conn->real_escape_string($_POST['txtShopPhoneNumber']);
+        $ShopDescription = $conn->real_escape_string($_POST['txtShopDescription']);
+        $ShopAddress = $conn->real_escape_string($_POST['txtShopAddress']);
+        $ShopLocation = $conn->real_escape_string($_POST['txtShopLocation']);
+        $ShopPostCode = $conn->real_escape_string($_POST['txtShopPostcode']);
+        $ShopCategory = $conn->real_escape_string($_POST['optShopCategory']);
+        $ShopOpeningTime = $conn->real_escape_string($_POST['lstShopOpeningTime']);
+        $ShopClosingTime = $conn->real_escape_string($_POST['lstShopClosingTime']);
+        $ShopDuration = $conn->real_escape_string($_POST['optShopDuration']);
         // adding image
-        $ShopImg1 = $mysqli->real_escape_string('../images/registerShopImages/shopMainImg'.$_FILES['txtShopImg1']['name']);
+        $ShopImg1 = $conn->real_escape_string('../images/registerShopImages/shopMainImg'.$_FILES['txtShopImg1']['name']);
+
+        // echo $ShopName;
+        // echo $ShopAddress;
+        // echo $ShopCategory;
+        // echo $ShopDescription;
+        // echo $ShopImg1;
 
         //making sure that IMG files are of valid extension
-
+/*        
         if(preg_match("!../images/registerShopImages/shopMainImg!",$_FILES['txtShopImg1']['name']))
         {
+            echo 'line 37';
             //copy ShopImg to Folder
             if(copy($_FILES['txtShopImg1']['tmp_name'],$ShopImg1))
             {
+                echo 'line 40';
                 $_SESSION['txtShopName'] = $shopName;
                 $_SESSION['txtShopImg1'] = $ShopImg1;
 
                 // INSERTING DATA
 
                 // $sql = "INSERT INTO ";
-
-                $sql = "INSERT INTO `tblshopregistration`(`ShopImg1`, `ShopName`, `ShopDescription`, `ShopPhone`, `ShopOctime`, `ShopCategary`, `ShopTemp`, `ShopLocation`) VALUES ('$ShopImg1','$ShopName','$ShopDescription','$ShopPhoneNumber','$ShopOpeningTime','$ShopCategory','$ShopDuration','$ShopLocation')";
+*/
+                $sql = "INSERT INTO tblshopregistration (ShopImg1, ShopName, ShopDescription, ShopPhone, ShopOctime, ShopCategary, ShopTemp, ShopLocation)VALUES ('$ShopImg1','$ShopName','$ShopDescription','$ShopPhoneNumber','$ShopOpeningTime','$ShopCategory','$ShopDuration','$ShopLocation')";
 
                 // on succesfull query!
-                if($mysqli->query($sql) === true)
+                if($conn->query($sql) === true)
                 {
-                    $_SESSION['message'] = 'Shop Registered!';
+                    echo 'Line 54';
+                    // $_SESSION['message'] = 'Shop Registered!';
+                    echo '<script>alert("Shop Registered!")</script>';
                     header("location:../index.html");
                 }
                 else
                 {
-                    $_SESSION['message'] = "Shop NOT Registered";
+                    echo 'Line 60';
+                    // $_SESSION['message'] = "Shop NOT Registered";
+                    echo '<script>alert("Shop NOT Registered")</script>';
                 }
-            }
+
+    }
+    else
+    {
+        echo 'Line 113';
+        $_SESSION['message'] = "Failed to pass data!";
+        // echo 'Data \n';
+    }
+    /*            }
             else
             {
-                $_SESSION['message'] = "Failed to upload Shop Image!";
+                echo 'Line 66';
+                // $_SESSION['message'] = "Failed to upload Shop Image!";
+                
+             echo '<script>alert("Failed to upload Shop Image!")</script>';
             }
         }
-        else
+     else
         {
-            $_SESSION['message'] = "Invalid Image type. Please use PNG, JPG or GIF image file only";
+            echo 'Line 72';
+            // $_SESSION['message'] = "Invalid Image type. Please use PNG, JPG or GIF image file only";
+             echo '<script>alert("Invalid Image type. Please use PNG, JPG or GIF image file only")</script>';
         }
 
     }
 
-/*
+    /*
         $sql = "INSERT INTO tblshopregistration(ShopName, ShopPhoneNumber, ShopDescription, ShopAddress, ShopLocation, ShopPostCode, ShopCategory, ShopOpeningTime, ShopClosingTime, ShopDuration) VALUES ('$ShopName', '$ShopPhoneNumber', '$ShopDescription','$ShopAddress','$ShopLocation','$ShopPostCode','$ShopCategory','$ShopOpeningTime','$ShopClosingTime','$ShopDuration')";
 
         // $sql = "INSERT INTO tblshopregistration(ShopName, ShopPhoneNumber, ShopDescription, ShopAddress, ShopLocation, ShopPostCode, ShopCategory, ShopOpeningTime, ShopClosingTime, ShopDuration, ShopImg1) VALUES ('$ShopName', '$ShopPhoneNumber', '$ShopDescription','$ShopAddress','$ShopLocation','$ShopPostCode','$ShopCategory','$ShopOpeningTime','$ShopClosingTime','$ShopDuration','$ShopImg1')";
@@ -114,13 +141,14 @@ include '../php/database/connection.php';
         } 
     
     }*/
-    else
-    {
-        $_SESSION['message'] = "Failed to pass data!";
-        // echo 'Data \n';
-    }
 
+    
+    // else
+    // {
+    //     echo 'Line 113';
+    //     $_SESSION['message'] = "Failed to pass data!";
+    //     // echo 'Data \n';
+    // }
 
 
 ?>
-
