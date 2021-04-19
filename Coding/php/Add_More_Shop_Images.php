@@ -1,5 +1,6 @@
 
 <?php
+session_start();
 /*
 include 'database/connection.php';
 
@@ -98,12 +99,17 @@ if(isset($_POST['submit'])) {
             //echo $finalImg;
             
             // $insertQry = "INSERT INTO tblshopregistration (ShopImg1) VALUES ('$finalImg')";
+            
+            $id  = $_SESSION['shopId'];
+            echo $id;            
 
-            $insertQry = "INSERT INTO tblshopimage (SrId,ImgName,ImgUrl) VALUES ('','$fileName','$finalImg')";
+            $insertQry = "INSERT INTO tblshopimage (SrId,ImgName,ImgUrl) VALUES ('$id','$fileName','$finalImg')";
 
             $data=mysqli_query($conn,$insertQry);
+            echo 'Hello';
+            // echo $shopId;
 
-           // header('Location:../index.html');
+           # header('Location:../index.php');
         }
         else
         {

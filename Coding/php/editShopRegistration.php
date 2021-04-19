@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 include'/php/ShopRegistration.php';
 ?>
 
@@ -8,7 +8,7 @@ include'/php/ShopRegistration.php';
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<title>Shop Registration | Shop Finder </title>
+		<title>Edit Shop Registration | Shop Finder </title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -402,7 +402,7 @@ include'/php/ShopRegistration.php';
 								<nav class="bradcaump-content">
 									<a class="breadcrumb_item" href="index.html">Home</a>
 									<span class="brd-separetor">/</span>
-									<span class="breadcrumb_item active">Shop Registration</span>
+									<span class="breadcrumb_item active">Edit Shop Registration</span>
 								</nav>
 							</div>
 						</div>
@@ -416,8 +416,8 @@ include'/php/ShopRegistration.php';
 					<div class="row h-100 justify-content-center align-items-center">
 						<div class="col-lg-6 col-12">
 							<div class="my_account_wrapper">
-								<h3 class="account__title" align="center">Shop Registration</h3>
-								<form action="php/ShopRegistration.php" method="POST" enctype="multipart/form-data">
+								<h3 class="account__title" align="center">Edit Shop Registration</h3>
+								<form action="php/editShopRegistration.php" method="POST" enctype="multipart/form-data">
 									<div class="account__form">
 										<div class="input__box">
 											<label>Shop Name <span>*</span></label>
@@ -427,9 +427,14 @@ include'/php/ShopRegistration.php';
 										<div class="input__box">
 											<label>Shop Phone Number<span>*</span></label>
 											<input type="tel" minlength="10" maxlength="14"  
-											 placeholder="Please include your Country Code like +91 xxxxxxxxxx" name ="txtShopPhoneNumber">
-											
-											<!-- value="<?= isset($_SESSION['info']['txtShopPhoneNumber'] ? $_SESSION['info']['txtShopPhoneNumber'] : ''?>"> -->
+										 	 placeholder="Please include your Country Code like +91 xxxxxxxxxx" name ="txtShopPhoneNumber" 
+                                             
+                                            >
+
+ 											
+										
+                                           
+                                          
 
 										</div>
 										<div class="input__box">
@@ -533,7 +538,7 @@ include'/php/ShopRegistration.php';
 										</div>
 
 										<div class="form__btn" style="padding:3%" align="center"  >
-											<button type = "submit" name="submit" value="submit" >Submit</button>
+											<button type = "submit" name="submit" value="submit" >Update</button>
 										</div>
 
 									</div>

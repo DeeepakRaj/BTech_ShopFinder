@@ -5,7 +5,7 @@ include '../php/database/connection.php';
 
     if($_SERVER['REQUEST_METHOD'] == 'POST')
     { 
-        echo 'Line 7';
+        // echo 'Line 7';
         /*
             checking FILES array Data
             print_r($_FILES);die;
@@ -51,14 +51,22 @@ include '../php/database/connection.php';
                 // on succesfull query!
                 if($conn->query($sql) === true)
                 {
-                    echo 'Line 54';
+                    // echo 'Line 54';
                     // $_SESSION['message'] = 'Shop Registered!';
                     echo '<script>alert("Shop Registered!")</script>';
-                    header("location:../index.html");
+                    #header("location:../index.php");
+                    $shopId = $conn->insert_id;
+                    echo $shopId;
+
+                    
+                    $_SESSION['shopId'] = "$shopId";
+
+                    // echo 'Shop Id is'.$shopId;
+                    header("location:../Add_More_Shop_Images.html");
                 }
                 else
                 {
-                    echo 'Line 60';
+                    // echo 'Line 60';
                     // $_SESSION['message'] = "Shop NOT Registered";
                     echo '<script>alert("Shop NOT Registered")</script>';
                 }
@@ -66,10 +74,12 @@ include '../php/database/connection.php';
     }
     else
     {
-        echo 'Line 113';
+        // echo 'Line 113';
         $_SESSION['message'] = "Failed to pass data!";
         // echo 'Data \n';
     }
+
+
     /*            }
             else
             {
