@@ -1,15 +1,53 @@
+<?php
+
+    include("connection.php");
+
+    session_start();
+    if(isset($_POST["submit"]))
+    {
+        $shopCategoryName = $_POST['txtShopCategoryName'];
+
+        // $phno = stripcslashes($phno);
+
+        // $password = stripcslashes($password);
+
+
+        $sql = "INSERT INTO tblcategorytable (CatName) VALUES ('$shopCategoryName')";
+
+        if($conn->query($sql) === true)
+        {
+            // echo 'Line 54';
+            // $_SESSION['message'] = 'Shop Registered!';
+            echo '<script>alert("Shop Category Add!")</script>';
+            #header("location:../index.php");
+
+            // echo 'Shop Id is'.$shopId;
+            #header("location:Add_More_Shop_Images.php");
+        }
+        else
+        {
+            // echo 'Line 60';
+            // $_SESSION['message'] = "Shop NOT Registered";
+            echo '<script>alert("Shop Category NOT Add!")</script>';
+        }
+    }
+    else
+    {
+        echo '<script>alert("submit btn not set")</script>';
+    }
+    // echo 'submit btn not set';
+    
+?>
+
 
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>My Account | Bookshop Responsive Bootstrap4 Template</title>
+	<title>Add Shop Category | Bookshop Responsive Bootstrap4 Template</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<!-- php -->
-	<link rel="stylesheet" href="php/Add_More_Shop_Images.php"> 
 
 	<!-- Favicons -->
 	<link rel="shortcut icon" href="images/favicon.ico">
@@ -32,9 +70,7 @@
 	<script src="js/vendor/modernizr-3.5.0.min.js"></script>
 </head>
 <body>
-	<!--[if lte IE 9]>
-		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-	<![endif]-->
+
 
 	<!-- Main wrapper -->
 	<div class="wrapper" id="wrapper">
@@ -379,11 +415,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="bradcaump__inner text-center">
-                        	<h2 class="bradcaump-title">SHOP</h2>
+                        	<h2 class="bradcaump-title">Add Shop Category</h2>
                             <nav class="bradcaump-content">
-                              <a class="breadcrumb_item" href="index.html">Home</a>
+                              <a class="breadcrumb_item" href="index.php">Home</a>
                               <span class="brd-separetor">/</span>
-                              <span class="breadcrumb_item active">Shop Images</span>
+                              <span class="breadcrumb_item active">Shop</span>
                             </nav>
                         </div>
                     </div>
@@ -392,50 +428,37 @@
         </div>
         <!-- End Bradcaump area -->
 		<!-- Start My Account Area -->
-						<section class="my_account_area pt--80 pb--55 bg--white">
-							<div class="container">
-								<div class="row h-100 justify-content-center align-items-center">
-									<div class="col-lg-6 col-12">
-										<div class="my_account_wrapper">
-
-											
-											<h3 class="account__title" alignment="center">Add More Shop  Images</h3>
-											<?php
-												<br>echo "Shop Id is " . $_SESSION["shopId"] . ".";
-											?>
-
-											<form action="../Coding/php/Add_More_Shop_Images.php" method="POST" enctype="multipart/form-data">
-												<div class="account__form">
-													<div class="input__box">
-														<label>Select Multi Shop Images <span>*</span></label>
-														
-
-														<!-- <input type="text"> -->
-														<input type="file" id="myfile1"  name="txtshopImages[]" multiple  >
-														<small> You can ADD upto 5 five images </small>
-													</div>
-                                                                                                        					        						
-													<div class="form__btn" style="padding:3%" align="center"  onclick="location.href='Shop Registration.html'">
-														<button name="submit" >Submit</button>
-														<button name="submit" style="margin-left:5%;" >Add it Later</button>
-													</div>
-
-													
-
-												</div>
-											</form>
-										</div>
+		<section class="my_account_area pt--80 pb--55 bg--white">
+			<div class="container">
+				<div class="row h-100 justify-content-center align-items-center">
+					<div class="col-lg-6 col-12">
+						<div class="my__account__wrapper">
+							<h3 class="account__title" align="center">Add Shop Category</h3>
+							<!-- Start of Form -->
+                            <form action="#" method="post">
+								<div class="account__form">
+									<div class="input__box">
+										<label>Category Name<span>*</span></label>
+										<input type="text" name="txtShopCategoryName" required/>
 									</div>
 									
-								</div>
-							</div>
-						</section>
-					</div>
-					</div>
-					<div class="col-lg-6 col-12">
-						
-				</div>
-			</div>
+                                    <div class="form__btn" style="padding:3%" align="center"  >
+											<button type = "submit" name="submit" value="submit" >Submit</button>
+                                    </div>
+<!-- 
+									<div class="form__btn">
+                                        <input type = "submit" value = "submit" name = "submit">
+										 <button>Submit</button> 
+									</div> -->
+									<br>
+							</form>
+							
+                        </div>
+                    </div>
+                </div>
+					
+            </div>
+        
 		</section>
 		<!-- End My Account Area -->
 		<!-- Footer Area -->
@@ -503,6 +526,6 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/plugins.js"></script>
 	<script src="js/active.js"></script>
-	
+
 </body>
 </html>

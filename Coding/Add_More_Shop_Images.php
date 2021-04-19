@@ -1,4 +1,72 @@
 
+<?php
+session_start();
+
+ include 'connection.php';
+
+// echo"Hello!! \n Welcome to php.";
+if(isset($_POST['submit'])) {
+
+    //array for Valid Shop Image extension
+    $extension = array('jpeg','jpg','png','gif','tiff','psd','eps','ai','indd','raw');
+
+    foreach ($_FILES['txtshopImages']['tmp_name'] as $key => $value) {
+         $fileName = $_FILES['txtshopImages']['name'][$key];
+        $fileName_tmp = $_FILES['txtshopImages']['tmp_name'][$key];
+        echo '<br>';
+        //printing extension of files
+
+         $shopImgExt = pathinfo($fileName, PATHINFO_EXTENSION);
+
+      //  $finalImg='';
+
+        if(in_array($shopImgExt,$extension))
+        {
+            if(!file_exists('../images/registerShopImages/'.$fileName))
+            {
+                move_uploaded_file($fileName_tmp,'../images/registerShopImages/'.$fileName);
+                $finalImg ="../images/registerShopImages/" . $fileName;
+            }
+            else
+            //if file exists then upload it with by appending current system time.
+            {
+               $fileName = str_replace('.','-',basename($fileName,$shopImgExt));
+               $newFileName = $fileName.time().".".$shopImgExt;
+
+               move_uploaded_file($fileName_tmp,'../images/registerShopImages/'.$newFileName);
+               $finalImg = "../images/registerShopImages/" . $newFileName;              
+            }  
+            // insert query
+            // $insertQry = "INSERT INTO `tblshopregistration`(`ShopImg1`, `ShopImg2`, `ShopImg3`, `ShopImg4`, `ShopImg5`) VALUES ($finalImg)";
+            // mysqli_query($conn,$insertQry);
+
+            //echo $finalImg;
+            
+            // $insertQry = "INSERT INTO tblshopregistration (ShopImg1) VALUES ('$finalImg')";
+            
+            $id  = $_SESSION['shopId'];
+            #echo $id;            
+
+            $insertQry = "INSERT INTO tblshopimage (SrId,ImgName,ImgUrl) VALUES ('$id','$fileName','$finalImg')";
+
+            $data=mysqli_query($conn,$insertQry);
+            // echo 'Hello';
+            // echo $shopId;
+
+            header('Location:index.php');
+        }
+        else
+        {
+            echo'<script> alert("Invalid extension of file") </script> ';
+        }
+    }
+}
+
+?>
+
+
+<!-- HTML CODE -->
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -400,11 +468,8 @@
 
 											
 											<h3 class="account__title" alignment="center">Add More Shop  Images</h3>
-											<?php
-												<br>echo "Shop Id is " . $_SESSION["shopId"] . ".";
-											?>
-
-											<form action="../Coding/php/Add_More_Shop_Images.php" method="POST" enctype="multipart/form-data">
+											
+											<form action="Add_More_Shop_Images.php" method="POST" enctype="multipart/form-data">
 												<div class="account__form">
 													<div class="input__box">
 														<label>Select Multi Shop Images <span>*</span></label>
@@ -506,3 +571,7 @@
 	
 </body>
 </html>
+
+
+
+

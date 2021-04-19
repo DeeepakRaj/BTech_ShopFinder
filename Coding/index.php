@@ -52,7 +52,7 @@
 						<nav class="mainmenu__nav">
 							<ul class="meninmenu d-flex justify-content-start">
 								<li class="drop with--one--item"><a href="index.php">Home</a></li>
-								<li class="drop"><a href="./ShopRegistration.html">Shop Registration</a>
+								<li class="drop"><a href="./ShopRegistration.php">Shop Registration</a>
 									<!--<div class="megamenu mega03">
 										<ul class="item item03">
 											<li class="title">Shop Layout</li>
