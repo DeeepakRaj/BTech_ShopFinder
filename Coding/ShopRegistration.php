@@ -26,7 +26,7 @@ include 'connection.php';
 
         #$ShopCategory = $conn->real_escape_string($_POST['optShopCategory']);
 
-        $ShopOpeningTime = $conn->real_escape_string($_POST['lstShopOpeningTime']);
+        $ShopOpeningTime = $conn->real_escape_string($_POST['txtShopTiming']);
         $ShopClosingTime = $conn->real_escape_string($_POST['lstShopClosingTime']);
         $ShopDuration = $conn->real_escape_string($_POST['optShopDuration']);
         // adding image
@@ -677,9 +677,9 @@ include 'connection.php';
 										</div>
 
 										<div class="input__box ">
-											<label>Opening Time <span>*</span></label>
+											<label>Shop Timing <span>*</span></label>
 											<!-- <input type="text"> -->
-											<input type="time" min="08:00" max="23:00"   name ="lstShopOpeningTime">
+											<input type="text" min="08:00" max="23:00"   name ="txtShopTiming" placeholder="8:00 AM - 8:00 PM, Mon - Sat">
 											<!-- <class="select__option" name ="lstShopOpeningDays"> -->
 												
 											<div class="input__box ">
@@ -687,11 +687,7 @@ include 'connection.php';
 											</div>
 										</div>
 
-										<div class="input__box ">
-											<label>Closing Time <span>*</span></label>
-											<!-- <input type="text"> -->
-											<input type="time" min="08:00" max="23:00"   name ="lstShopClosingTime">
-										</div>
+										
 
 										<div class="input__box">
 											<label>Shop Duration<span>*</span></label>
