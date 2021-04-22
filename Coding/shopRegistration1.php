@@ -1,37 +1,53 @@
 <?php
     session_start();
+	require_once 'connection.php';
+	#echo 'Line 3';
     if(isset($_POST['submit']))
     {
-        $ShopName =  $_POST['txtShopName'];
-        $ShopPhoneNumber = $_POST['txtShopPhoneNmber'];
-        $ShopDescription = $_POST['txtShopDescription'];
-        $ShopAddress = $_POST['txtShopAddress'];
-        $ShopLocation = $_POST['txtShopLocation'];
-        $ShopPostCode = $_POST['txtShopPostcode'];
+        $ShopName =  $conn->real_escape_string($_POST['txtShopName']);
+        $ShopPhoneNumber = $conn->real_escape_string($_POST['txtShopPhoneNumber']);
+        $ShopDescription = $conn->real_escape_string($_POST['txtShopDescription']);
+        $ShopAddress = $conn->real_escape_string($_POST['txtShopAddress']);
+        $ShopLocation = $conn->real_escape_string($_POST['txtShopLocation']);
+        $C = $conn->real_escape_string($_POST['txtShopPostcode']);
+		#echo 'Line 12';
+        $ShopCategory = $conn->real_escape_string($_POST['optShopCategory']);
+		#$ShopOtherCategory = $_POST['txtOtherShopCategory'];
 
-        #$ShopCategory = $conn->real_escape_string($_POST['optShopCategory']);
-
-        $ShopOpeningTime = $_POST['txtShopTiming'];
-        $ShopClosingTime = $_POST['lstShopClosingTime'];
-        $ShopDuration = $_POST['optShopDuration'];
+        $ShopTiming = $conn->real_escape_string($_POST['txtShopTiming']);
+        $ShopDuration = $conn->real_escape_string($_POST['optShopDuration']);
         // adding image
-        $ShopImg1 = ('../images/registerShopImages/shopMainImg'.$_FILES['txtShopImg1']['name']);
+        $ShopImg1 =$conn->real_escape_string('../images/registerShopImages/shopMainImg'.$_FILES['txtShopImg1']['name']);
 
-        $query = "INSERT INTO tblshopregistration (ShopImg1, ShopName, ShopDescription, ShopPhone, ShopOctime, ShopCategary, ShopTemp, ShopLocation)VALUES ('$ShopImg1','$ShopName','$ShopDescription','$ShopPhoneNumber','$ShopOpeningTime','$ShopCategory','$ShopDuration','$ShopLocation')";
 
-        if($query_run)
+
+		#echo 'Line 21';
+        $query = "INSERT INTO tblshopregistration (ShopName, ShopPhone, ShopAddress, ShopPinCode, ShopLocation, ShopDescription, ShopCategory, ShopTime, ShopDuration, ShopImg1) VALUES ('$ShopName','$ShopPhoneNumber','$ShopAddress','$ShopPostCode','$ShopLocation','$ShopDescription','$ShopCategory','$ShopTiming', '$ShopDuration', '$ShopImg1')";
+		#echo 'Line 23';
+		$query_run = mysqli_query($conn,$query);
+        #echo 'Line 25';
+		if($query_run)
         {
+			#echo 'Line 28';
+			#echo "<script>alert('Data Inserted');</script>";
             $_SESSION['success'] = 'Shop Registered!';
-            #header('Location:index.php');
+            
+			#header('Location:index.php');
         }
         else
         {
+			#echo 'Line 34';
+			#echo "<script>alert('Failed Data Inserted');</script>";
             $_SESSION['status'] = 'Shop NOT Registered!';
             #header('Location:index.php');
         }
-      
+    #echo 'Line 38';  
 
     }
+	else
+	{
+		echo 'NOT ISSET';
+	}
 
 
 
@@ -439,7 +455,7 @@
 								<nav class="bradcaump-content">
 									<a class="breadcrumb_item" href="index.html">Home</a>
 									<span class="brd-separetor">/</span>
-									<span class="breadcrumb_item active">Shop Registration</span>
+									<span class="breadcrumb_item active" >Shop Registration</span>
 								</nav>
 							</div>
 						</div>
@@ -447,6 +463,21 @@
 				</div>
 			</div>
 			<!-- End Bradcaump area -->
+			<?php
+
+				if(isset($_SESSION['success']) && $_SESSION['success']!= '')
+				{
+					echo '<h1 class="bg-success text-white" align="center"> '.$_SESSION['success'].' </h1>';
+					unset($_SESSION['success']);
+				}
+				else
+				{
+					echo '<h1 class="bg-danger text-white" align="center"> '.$_SESSION['status'].' </h1>';
+					unset($_SESSION['status']);
+				
+				}
+
+			?>
 			<!-- Start My Account Area -->
 			<section class="my_account_area pt--80 pb--55 bg--white">
 				<div class="container">
@@ -454,7 +485,7 @@
 						<div class="col-lg-6 col-12">
 							<div class="my_account_wrapper">
 								<h3 class="account__title" align="center">Shop Registration</h3>
-								<form action="#" method="POST" enctype="multipart/form-data">
+								<form action="shopRegistration1.php" method="POST" enctype="multipart/form-data">
 									<div class="account__form">
 										<div class="input__box">
 											<label>Shop Name <span>*</span></label>
@@ -522,26 +553,24 @@
 											<label>Shop Category<span>*</span></label>
 											<select class="select__option"   name ="optShopCategory">
 												
-												<?php while($row1 = mysqli_fetch_array($shopCat)):;?>
-											    <option value="<?php echo $row1[0];?>"><?php echo $row1[1];?></option>
-												<?php endwhile; ?>
+
 												<!-- YOUTUBE LINK -->
 												<!-- https://www.youtube.com/watch?v=V8sIWh_sdvs&list=RDCMUCS3W5vFugqi6QcsoAIHcMpw&start_radio=1&rv=V8sIWh_sdvs&t=148&ab_channel=1BestCsharpblog -->
 
-												<!-- <option>Select a Category</option>
+												<option>Select a Category</option>
 												<option>Clothing</option>
 												<option>Cosmetics</option>
 												<option>Electronic</option>
 												<option>Food</option>
 												<option>General Store</option>
 												<option>Hardware</option>
-												<option>Other</option> -->
+												<option>Other</option>
 											</select>
 
-											<div class="input__box">
+											<!-- <div class="input__box">
 												<label>Specify if Other<span>*</span></label>
-												<input type="text"   name ="txtOtherShopCategory">
-											</div>
+												<input type="text" name ="txtOtherShopCategory">
+											</div> -->
 
 										</div>
 
