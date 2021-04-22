@@ -2,7 +2,7 @@
     session_start();
 	require_once 'connection.php';
 
-			$shopCatSQL = "SELECT * FROM tblcategorytable";
+		$shopCatSQL = "SELECT * FROM tblcategorytable";
 		$shopCat = mysqli_query($conn, $shopCatSQL);
 
 	#echo 'Line 3';
@@ -33,6 +33,7 @@
 		#echo 'Line 23';
 		$query_run = mysqli_query($conn,$query);
         #echo 'Line 25';
+		echo $query_run;
 		if($query_run)
         {
 			#echo 'Line 28';
@@ -54,7 +55,7 @@
     }
 	else
 	{
-		//echo 'NOT ISSET';
+		echo 'NOT ISSET';
 	}
 
 
@@ -524,7 +525,7 @@
 						<div class="col-lg-6 col-12">
 							<div class="my_account_wrapper">
 								<h3 class="account__title" align="center">Shop Registration</h3>
-								<form action="shopRegistration1.php" method="POST" enctype="multipart/form-data">
+								<form action="YTcode.php" method="POST" enctype="multipart/form-data">
 									<div class="account__form">
 										<div class="input__box">
 											<label>Shop Name <span>*</span></label>
@@ -666,8 +667,8 @@
 		</div>
 		</div>
 		</section>
-		<BR>
-		<BR>
+
+		
 		<!-- End My Account Area -->
 		<!-- Footer Area -->
 		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">

@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
     // echo 'Hello';
     require_once 'connection.php';
 
@@ -8,6 +8,9 @@
      $query = "SELECT * FROM `tblshopregistration`";
      $query_run = mysqli_query($conn, $query);
 
+    
+    
+    
      $shopCatSQL = "SELECT * FROM tblcategorytable";
      $shopCat = mysqli_query($conn, $shopCatSQL);
 
@@ -202,7 +205,7 @@
             
                 <div class="modal-body">
                     <h3 class="account__title" align="center">Delete Shop</h3>
-                        <form action="shopRegistration1.php" method="POST" enctype="multipart/form-data">
+                        <form action="deleteShop.php" method="POST" enctype="multipart/form-data">
                             <div class="account__form">
                                 <div class="input__box" align="center">
                                     <label style="font-size: 20px;">Are you sure, You want to delete the shop. <span>*</span></label>
@@ -383,7 +386,7 @@
                                 $result = mysqli_query($conn, $query);
                                 while($rows = mysqli_fetch_array($result))
                                 {
-                                    
+                                    $_SESSION['deleteid']=$rows['SysId'];
                                
                             ?>
 				<div class="product product__style--3">
