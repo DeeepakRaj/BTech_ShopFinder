@@ -476,7 +476,7 @@ if(isset($_POST['submit'])) {
 														
 
 														<!-- <input type="text"> -->
-														<input type="file" id="myfile1"  name="txtshopImages[]" multiple  >
+														<input type="file" id="myfile1"  name="txtshopImages[]" multiple max="5"  >
 														<small> You can ADD upto 5 five images </small>
 													</div>
                                                                                                         					        						

@@ -8,6 +8,9 @@
      $query = "SELECT * FROM `tblshopregistration`";
      $query_run = mysqli_query($conn, $query);
 
+     $shopCatSQL = "SELECT * FROM tblcategorytable";
+     $shopCat = mysqli_query($conn, $shopCatSQL);
+
 
 ?>
 

@@ -3,7 +3,7 @@ session_start();
 $_SESSION['message'] = '';
 include 'connection.php';
 
-		$shopCatSQL = "SELECT * FROM 'tblcategorytable'";
+		$shopCatSQL = "SELECT * FROM tblcategorytable";
 		$shopCat = mysqli_query($conn, $shopCatSQL);
 
     if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -20,11 +20,8 @@ include 'connection.php';
         $ShopAddress = $conn->real_escape_string($_POST['txtShopAddress']);
         $ShopLocation = $conn->real_escape_string($_POST['txtShopLocation']);
         $ShopPostCode = $conn->real_escape_string($_POST['txtShopPostcode']);
-
-
-
-
-        #$ShopCategory = $conn->real_escape_string($_POST['optShopCategory']);
+		
+		$ShopCategory = $conn->real_escape_string($_POST['optShopCategory']);
 
         $ShopOpeningTime = $conn->real_escape_string($_POST['txtShopTiming']);
         $ShopClosingTime = $conn->real_escape_string($_POST['lstShopClosingTime']);

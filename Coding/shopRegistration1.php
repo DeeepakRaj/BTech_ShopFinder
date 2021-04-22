@@ -1,6 +1,10 @@
 <?php
     session_start();
 	require_once 'connection.php';
+
+			$shopCatSQL = "SELECT * FROM tblcategorytable";
+		$shopCat = mysqli_query($conn, $shopCatSQL);
+
 	#echo 'Line 3';
     if(isset($_POST['submit']))
     {
@@ -9,7 +13,7 @@
         $ShopDescription = $conn->real_escape_string($_POST['txtShopDescription']);
         $ShopAddress = $conn->real_escape_string($_POST['txtShopAddress']);
         $ShopLocation = $conn->real_escape_string($_POST['txtShopLocation']);
-        $C = $conn->real_escape_string($_POST['txtShopPostcode']);
+        $ShopPinCode = $conn->real_escape_string($_POST['txtShopPostcode']);
 		#echo 'Line 12';
         $ShopCategory = $conn->real_escape_string($_POST['optShopCategory']);
 		#$ShopOtherCategory = $_POST['txtOtherShopCategory'];
@@ -19,34 +23,38 @@
         // adding image
         $ShopImg1 =$conn->real_escape_string('../images/registerShopImages/shopMainImg'.$_FILES['txtShopImg1']['name']);
 
+		// $createdDate = date('d-m-y h:i:s');
+		// $resStatus = 1;
+
 
 
 		#echo 'Line 21';
-        $query = "INSERT INTO tblshopregistration (ShopName, ShopPhone, ShopAddress, ShopPinCode, ShopLocation, ShopDescription, ShopCategory, ShopTime, ShopDuration, ShopImg1) VALUES ('$ShopName','$ShopPhoneNumber','$ShopAddress','$ShopPostCode','$ShopLocation','$ShopDescription','$ShopCategory','$ShopTiming', '$ShopDuration', '$ShopImg1')";
+        $query = "INSERT INTO tblshopregistration (ShopName, ShopPhone, ShopAddress, ShopPinCode, ShopLocation, ShopDescription, ShopCategory, ShopTime, ShopDuration, ShopImg1) VALUES ('$ShopName','$ShopPhoneNumber','$ShopAddress','$ShopPinCode','$ShopLocation','$ShopDescription','$ShopCategory','$ShopTiming', '$ShopDuration', '$ShopImg1')";
 		#echo 'Line 23';
 		$query_run = mysqli_query($conn,$query);
         #echo 'Line 25';
 		if($query_run)
         {
 			#echo 'Line 28';
-			#echo "<script>alert('Data Inserted');</script>";
+			
             $_SESSION['success'] = 'Shop Registered!';
-            
-			#header('Location:index.php');
+            echo "<script>alert('Shop Registered Successfully! Want to add more Image to shop?');</script>";
+			header('Location:Add_More_Shop_Images.php');
         }
         else
         {
 			#echo 'Line 34';
-			#echo "<script>alert('Failed Data Inserted');</script>";
+			
             $_SESSION['status'] = 'Shop NOT Registered!';
-            #header('Location:index.php');
+            echo "<script>alert('Failed Data Inserted');</script>";
+			#header('Location:index.php');
         }
     #echo 'Line 38';  
 
     }
 	else
 	{
-		echo 'NOT ISSET';
+		//echo 'NOT ISSET';
 	}
 
 
@@ -463,11 +471,42 @@
 				</div>
 			</div>
 			<!-- End Bradcaump area -->
+
+			<!-- Modal for Adding mrore Images! -->
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+					</div>
+				</div>
+				</div>
+
+				
+
 			<?php
 
 				if(isset($_SESSION['success']) && $_SESSION['success']!= '')
 				{
-					echo '<h1 class="bg-success text-white" align="center"> '.$_SESSION['success'].' </h1>';
+					echo '<h1 class="bg-success text-white" align="center"> '.$_SESSION['success'].' </h1><br>';
+					// echo '	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+					// 	Add More Images to Shop
+					// </button>';
+
+					// echo "<script>alert('Shop Registered Successfully! Want to add more Image to shop?')</script>";
+					 /*?> <button  onclick="funAddMoreShopImgs()">Click Here to Add more Images</button> <?php	*/				
+
 					unset($_SESSION['success']);
 				}
 				else
@@ -552,19 +591,21 @@
 										<div class="input__box">
 											<label>Shop Category<span>*</span></label>
 											<select class="select__option"   name ="optShopCategory">
-												
+												<?php while($row1 = mysqli_fetch_array($shopCat)):;?>
+											    <option value="<?php echo $row1[0];?>"><?php echo $row1[1];?></option>
+												<?php endwhile; ?>
 
 												<!-- YOUTUBE LINK -->
 												<!-- https://www.youtube.com/watch?v=V8sIWh_sdvs&list=RDCMUCS3W5vFugqi6QcsoAIHcMpw&start_radio=1&rv=V8sIWh_sdvs&t=148&ab_channel=1BestCsharpblog -->
 
-												<option>Select a Category</option>
+												<!-- <option>Select a Category</option>
 												<option>Clothing</option>
 												<option>Cosmetics</option>
 												<option>Electronic</option>
 												<option>Food</option>
 												<option>General Store</option>
 												<option>Hardware</option>
-												<option>Other</option>
+												<option>Other</option> -->
 											</select>
 
 											<!-- <div class="input__box">
@@ -695,6 +736,21 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins.js"></script>
 		<script src="js/active.js"></script>
+
+		<script>
+			// function funAddMoreShopImgs() {
+			// var txt;
+			// var r = confirm("Want to Add More Shop Images!");
+			// if (r == true) {
+			// 	txt = window.location.href = "Add_More_Shop_Images.php";
+			// } else {
+			// 	txt = "You add it later on!";
+			// }
+			
+			
+			// }
+		</script> 
+		
 
 	</body>
 
