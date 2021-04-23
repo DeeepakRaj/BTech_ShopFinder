@@ -474,7 +474,7 @@
 						<div class="col-lg-6 col-12">
 							<div class="my_account_wrapper">
 								<h3 class="account__title" align="center">Update Shop Details</h3>
-                                <form action="shopRegistration1.php" method="POST" enctype="multipart/form-data">
+                                <form action="shopUpdate.php" method="POST" enctype="multipart/form-data">
                                     <div class="account__form">
 
                                         <?php
@@ -579,7 +579,8 @@
                                                 </div>
 
                                                 <div class="form__btn" style="padding:3%" align="center">
-                                                    <button type = "submit" name="update" value="Update" >Update</button>
+                                                    <!-- <button type="submit" name="btnShopUpdate"  value="Update" >Update</button> -->
+                                                    <input type="button" onclick="location.href='myShops2Edit.php?shp_id=<?php echo $rows['SysId'];?>  ';" >
                                                 </div>
                                                 <?php
                                             }
@@ -601,9 +602,26 @@
 			</section>
 		</div>
 		</div>
-		<div class="col-lg-6 col-12">
+        <!-- Modal to Update Shop -->
+            <div class="modal fade" id="shopUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Shop Updated!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <?php
+                                
 
-		</div>
+                            ?>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 		</div>
 		</section>
 
