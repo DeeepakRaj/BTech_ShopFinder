@@ -1,3 +1,11 @@
+<?php
+
+	include ('includes/header.php');
+	include ('includes/navbar.php');
+
+
+?>
+		
 		<!-- Start BEst Seller Area -->
 		<section class="wn__product__area brown--color pt--80  pb--30">
 			<div class="container">
@@ -2636,3 +2644,12 @@
 			</div>
 		</section>
 		<!-- Best Sale Area Area -->
+
+<?php
+
+	include ('includes/footer.php');
+	include ('includes/scripts.php');
+	
+
+
+?>
