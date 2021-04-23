@@ -51,191 +51,6 @@
 
 <body>
 
-    <!-- Modals -->
-    <!-- Shop Edit Modals -->
-
-    <div class="modal fade bd-example-modal-lg" id = "shopEditModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                
-                
-                <div class="modal-body">
-                    <h3 class="account__title" align="center">Update Shop Details</h3>
-                        <form action="shopRegistration1.php" method="POST" enctype="multipart/form-data">
-                            <div class="account__form">
-
-                                <?php
-                                if(mysqli_num_rows($query_run)>0)
-                                { 
-                                    while($row = mysqli_fetch_assoc($query_run))
-                                    {
-                                        ?>
-                                        
-                                        <div class="input__box">
-                                            <label>Shop Name <span>*</span></label>
-                                            <input type="text"    name ="txtShopName" value = "<?php echo $row['ShopName'] ?>">
-
-                                        </div>
-                                        <div class="input__box">
-                                            <label>Shop Phone Number<span>*</span></label>
-                                            <input type="tel" minlength="10" maxlength="14" placeholder="Please include your Country Code like +91 xxxxxxxxxx" name ="txtShopPhoneNumber" value = "<?php echo $row['ShopPhone'] ?>">
-                                            
-                                            
-                                        </div>
-                                        <div class="input__box">
-                                            <label>Address<span>*</span></label>
-                                            <input type="text"   placeholder="Street address" name ="txtShopAddress" value = "<?php echo $row['ShopAddress'] ?>" > 
-                                            
-                                        </div>
-
-
-                                        <div class="input__box">
-                                            <label>Postcode / ZIP <span>*</span></label>
-                                            <input type="number"   name ="txtShopPostcode" value = "<?php echo $row['ShopPhone'] ?>"> 
-
-                                        </div>
-
-                                        <div class="input__box">
-                                            <label>Location<span>*</span></label>
-                                            <input type="text"   name ="txtShopLocation" value = "<?php echo $row['ShopLocation'] ?>">
-                                            
-                                        </div>
-
-                                        <div class="input__box">
-                                            <label>Shop Description <span>*</span></label>
-                                            <!-- <input type="textarea" rows> -->
-                                            <textarea rows="4" cols="120"   name ="txtShopDescription"></textarea value = "<?php echo $row['ShopDescription'] ?>">
-                                            <small> Max 500 words. </small>
-                                        </div>
-
-                                        <div class="input__box">
-                                            <label>Shop Category<span>*</span></label>
-                                            <select class="select__option"   name ="optShopCategory" value = "<?php echo $row['ShopCategory'] ?>">
-                                                
-
-                                                <!-- YOUTUBE LINK -->
-                                                <!-- https://www.youtube.com/watch?v=V8sIWh_sdvs&list=RDCMUCS3W5vFugqi6QcsoAIHcMpw&start_radio=1&rv=V8sIWh_sdvs&t=148&ab_channel=1BestCsharpblog -->
-
-                                                <option>Select a Category</option>
-                                                <option>Clothing</option>
-                                                <option>Cosmetics</option>
-                                                <option>Electronic</option>
-                                                <option>Food</option>
-                                                <option>General Store</option>
-                                                <option>Hardware</option>
-                                                <option>Other</option>
-                                            </select>
-
-                                            <!-- <div class="input__box">
-                                                <label>Specify if Other<span>*</span></label>
-                                                <input type="text" name ="txtOtherShopCategory">
-                                            </div> -->
-
-                                        </div>
-
-                                        <div class="input__box ">
-                                            <label>Shop Timing <span>*</span></label>
-                                            <!-- <input type="text"> -->
-                                            <input type="text" min="08:00" max="23:00"   name ="txtShopTiming" placeholder="8:00 AM - 8:00 PM, Mon - Sat" value = "<?php echo $row['ShopTime'] ?>">
-                                            <!-- <class="select__option" name ="lstShopOpeningDays"> -->
-                                                
-                                            <div class="input__box ">
-                                                <small>Shop hours are 8:00 am to 11:00 pm</small>
-                                            </div>
-                                        </div>
-
-                                        
-
-                                        <div class="input__box">
-                                            <label>Shop Duration<span>*</span></label>
-                                            <select class="select__option"   name ="optShopDuration" value ="<?php echo $row['ShopDuration'] ?>">
-                                                <option>Select a Duration</option>
-                                                <option>Permanent</option>
-                                                <option>Temporary</option>
-                                                <option>Event </option>
-                                                </option>Sessional</option>
-                                                <option>Tent</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="input__box">
-                                            <label>Shop Image <span>*</span></label>
-                                            <!-- <input type="text"> -->
-                                            <input type="file"  name ="txtShopImg1" value="<?php echo $row['ShopImg1'] ?>">
-                                            <small> This image will be used as the Primary Shop image</small>
-                                        </div>
-
-                                        <div class="form__btn" style="padding:3%" align="center">
-                                            <button type = "submit" name="update" value="Update" >Update</button>
-                                        </div>
-                                        <?php
-                                    }
-                                }
-
-                                else
-                                {
-                                    echo 'No DATA';
-                                }
-                            ?>
-
-                            </div>
-                        </form> 
-                </div>
-            </div>
-         </div>
-    </div>
-
-    <!-- Shop Delete Modal -->
-
-    <div class="modal fade bd-example-modal-lg" id = "shopDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            
-                <div class="modal-body">
-                    <h3 class="account__title" align="center">Delete Shop</h3>
-                        <form action="deleteShop.php" method="POST" enctype="multipart/form-data">
-                            <div class="account__form">
-                                <div class="input__box" align="center">
-                                    <label style="font-size: 20px;">Are you sure, You want to delete the shop. <span>*</span></label>
-                                    <small> Note: You wont able to recover it later! </small>
-                                    
-                                </div>
-                                
-
-                                <div class="form__btn" style="padding:3%"  align="center">
-                                    <button type = "submit" name="btnYesDeleteShop" value="Yes" >Yes</button>
-                                    <button type = "submit" name="btnNoDeleteShop" value="No" >No</button>
-                                </div>
-
-                            </div>
-                        </form>
-                
-                                
-                </div>
-
-            </div>
-         </div>
-    </div>
-
-    <div class="modal fade" id="shopEditModal" tabindex="-1" role="dialog" aria-labelledby="shopEditModalTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            
-        </div>
-    </div>
-    </div>
     <!-- Main wrapper -->
 	<div class="wrapper" id="wrapper">
 		<!-- Header -->
@@ -380,14 +195,14 @@
 
 				<!-- Start Single Product -->
 				<?php
-
+					
 
                                 $query = "SELECT * FROM tblshopregistration";
                                 $result = mysqli_query($conn, $query);
                                 while($rows = mysqli_fetch_array($result))
                                 {
-                                    $_SESSION['deleteid']=$rows['SysId'];
-                               
+                                    $_SESSION['shopId']=$rows['SysId'];
+									// echo $_SESSION['shopId'];                               
                             ?>
 				<div class="product product__style--3">
 					<div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -403,7 +218,7 @@
 						<div class="product__content content--center">
 							<h4><a href="single-product.php?shp_id=<?php echo $rows['SysId'];?> "><?php echo $rows['ShopName']; ?></a></h4>
 							<ul class="prize d-flex">
-								<li><?php echo $rows['ShopCategary']; ?></li>
+								<li><?php echo $rows['ShopCategory']; ?></li>
 								<!--<li class="old_prize">$35.00</li>-->
 							</ul>
 							<div class="action">
@@ -411,11 +226,7 @@
 									<ul class="add_to_links">
 										<li>
 											<h6><?php echo $rows['ShopLocation']; ?></h6>
-                                            <!-- Buttons for Modals -->
                                             
-                                            <button type="button" class="btn " data-toggle="modal" data-target="#shopEditModal">Edit</button>
-
-                                            <button type="button" class="btn " data-toggle="modal" data-target="#shopDeleteModal">Delete</button>
 										</li>
                                     </ul>
 								</div>

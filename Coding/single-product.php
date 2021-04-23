@@ -12,6 +12,7 @@ if(isset($_GET['shp_id']))
 		$Id=$_GET['shp_id'];
 		//query to fetch data from tblshopregistration table.
         $sql = "Select * from tblshopregistration where SysId=" . $Id;
+		
        
 		$res = mysqli_query($conn,$sql);
         $row = mysqli_fetch_array($res);
@@ -54,6 +55,44 @@ if(isset($_GET['shp_id']))
 </head>
 
 <body>
+	<!-- Shop Delete Modal -->
+
+    <div class="modal fade bd-example-modal-lg" id = "shopDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            
+                <div class="modal-body">
+                    <h3 class="account__title" align="center">Delete Shop</h3>
+                        <form action="deleteShop.php" method="POST" enctype="multipart/form-data">
+                            <div class="account__form">
+                                <div class="input__box" align="center">
+                                    <label style="font-size: 20px;">Are you sure, You want to delete the shop. <span>*</span></label>
+                                    <small> Note: You wont able to recover it later! </small>
+                                    
+                                </div>
+                                
+
+                                <div class="form__btn" style="padding:3%"  align="center">
+                                    <button type = "submit" name="btnYesDeleteShop" value="Yes" >Yes</button>
+                                    <button type = "submit" name="btnNoDeleteShop" value="No" >No</button>
+                                </div>
+
+                            </div>
+                        </form>
+                
+                                
+                </div>
+
+            </div>
+         </div>
+    </div>
+
 	<!--[if lte IE 9]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
 	<![endif]-->
@@ -532,8 +571,21 @@ if(isset($_GET['shp_id']))
 										<div class="box-tocart d-flex">
 											<div class="product-addto-links clearfix">
 												<div class="addtocart__actions">
-													<button class="tocart" type="submit">Report
-														Shop</button>
+													<!-- <?php 
+													// if($id == $row['SysId'])
+													// {?> -->
+														<form action="myShops2Edit.php" method="POST"> 
+														<button class="tocart" name="btnShopReport" type="submit">Report Shop</button>
+														
+														<button class="tocart" name="btnShopEdit" onclick="myShops2Edit.php" type="submit">Edit Shop</button>
+														
+														
+														</form>
+												
+												<!-- <?php	//} ?> -->
+													
+													<br>
+													<button class="tocart" name="btnShopEdit" data-toggle="modal" data-target="#shopDeleteModal" >Delete Shop</button>
 												</div>
 												<br>
 												<!--<div class="addtocart__actions">
