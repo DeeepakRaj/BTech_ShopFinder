@@ -483,7 +483,6 @@
                                             while($row = mysqli_fetch_array($query_run))
                                             {
                                                 ?>
-                                                
                                                 <div class="input__box">
                                                     <label>Shop Name <span>*</span></label>
                                                     <input type="text"  name ="txtShopName" value = "<?php echo $row['ShopName'] ?>">
@@ -580,7 +579,7 @@
 
                                                 <div class="form__btn" style="padding:3%" align="center">
                                                     <!-- <button type="submit" name="btnShopUpdate"  value="Update" >Update</button> -->
-                                                    <input type="button" onclick="location.href='myShops2Edit.php?shp_id=<?php echo $rows['SysId'];?>  ';" >
+                                                    <input type="submit" value = "update" name= "btnShopUpdate" onclick="location.href='shopUpdate.php?shp_id=<?php echo $rows['SysId'];?>  ';" >
                                                 </div>
                                                 <?php
                                             }

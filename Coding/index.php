@@ -488,7 +488,7 @@
 
 							<h4><a href="single-product.php?shp_id=<?php echo $rows['SysId'];?> "><?php echo $rows['ShopName']; ?></a></h4>
 							<ul class="prize d-flex">
-								<li><?php echo $rows['ShopCategary']; ?></li>
+								<li><?php echo $rows['ShopCategory']; ?></li>
 								<!--<li class="old_prize">$35.00</li>-->
 							</ul>
 							<div class="action">
