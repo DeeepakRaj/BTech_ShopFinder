@@ -1,100 +1,8 @@
 <?php
-session_start();
-require_once 'connection.php';
-
-$shopCatSQL = "SELECT * FROM tblcategorytable";
-$shopCat = mysqli_query($conn, $shopCatSQL);
-
-#echo 'Line 3';
-if (isset($_POST['btnShopUpdate'])) {
-	$ShopName =  $conn->real_escape_string($_POST['txtShopName']);
-	$ShopPhoneNumber = $conn->real_escape_string($_POST['txtShopPhoneNumber']);
-	$ShopDescription = $conn->real_escape_string($_POST['txtShopDescription']);
-	$ShopAddress = $conn->real_escape_string($_POST['txtShopAddress']);
-	$ShopLocation = $conn->real_escape_string($_POST['txtShopLocation']);
-	$ShopPinCode = $conn->real_escape_string($_POST['txtShopPostcode']);
-	#echo 'Line 12';
-	$ShopCategory = $conn->real_escape_string($_POST['optShopCategory']);
-	#$ShopOtherCategory = $_POST['txtOtherShopCategory'];
-
-	$ShopTiming = $conn->real_escape_string($_POST['txtShopTiming']);
-	$ShopDuration = $conn->real_escape_string($_POST['optShopDuration']);
-	// adding image
-	#$ShopImg1 =$conn->real_escape_string('../images/registerShopImages/shopMainImg'.$_FILES['txtShopImg1']['name']);
-	
-	$ShopImg1 = getimagesize($_FILES["txtShopImg1"]["tmp_name"]);
-	if ($check !== false) {
-		echo "File is an image - " . $check["mime"] . ".";
-		$uploadOk = 1;
-	} else {
-		echo "File is not an image.";
-		$uploadOk = 0;
-	}
-	// Check if file already exists
-	if (file_exists($target_file)) {
-		echo "Sorry, file already exists.";
-		$uploadOk = 0;
-	}
-
-	// Check file size
-	if ($_FILES["txtShopImg1"]["size"] > 500000) {
-		echo "Sorry, your file is too large.";
-		$uploadOk = 0;
-	}
-
-	// Allow certain file formats
-	if (
-		$imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-		&& $imageFileType != "gif"
-	) {
-		echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-		$uploadOk = 0;
-	}
-
-	// Check if $uploadOk is set to 0 by an error
-	if ($uploadOk == 0) {
-		echo "Sorry, your file was not uploaded.";
-		// if everything is ok, try to upload file
-	} else {
-		if (move_uploaded_file($_FILES["txtShopImg1"]["tmp_name"], $target_file)) {
-			echo "The file " . htmlspecialchars(basename($_FILES["txtShopImg1"]["name"])) . " has been uploaded.";
-		} else {
-			echo "Sorry, there was an error uploading your file.";
-		}
-	}
-
-	// $createdDate = date('d-m-y h:i:s');
-	// $resStatus = 1;
-
-
-
-	#echo 'Line 21';
-	$query = "INSERT INTO tblshopregistration (ShopName, ShopPhone, ShopAddress, ShopPinCode, ShopLocation, ShopDescription, ShopCategory, ShopTime, ShopDuration, ShopImg1) VALUES ('$ShopName','$ShopPhoneNumber','$ShopAddress','$ShopPinCode','$ShopLocation','$ShopDescription','$ShopCategory','$ShopTiming', '$ShopDuration', '$ShopImg1')";
-	#echo 'Line 23';
-	$query_run = mysqli_query($conn, $query);
-	#echo 'Line 25';
-	echo $query_run;
-	if ($query_run) {
-		#echo 'Line 28';
-
-		$_SESSION['success'] = 'Shop Registered!';
-		echo "<script>alert('Shop Registered Successfully! Want to add more Image to shop?');</script>";
-		#header('Location:Add_More_Shop_Images.php');
-	} else {
-		#echo 'Line 34';
-
-		$_SESSION['status'] = 'Shop NOT Registered!';
-		echo "<script>alert('Failed Data Inserted');</script>";
-		#header('Location:index.php');
-	}
-	#echo 'Line 38';  
-
-} else {
-//	echo 'NOT ISSET';
-}
-
-
-
+	session_start();
+	require_once 'connection.php';
+	$shopCatSQL = "SELECT * FROM tblcategorytable";
+    $shopCat = mysqli_query($conn, $shopCatSQL);
 ?>
 <!doctype html>
 <html class="no-js" lang="en-us">
@@ -140,26 +48,28 @@ if (isset($_POST['btnShopUpdate'])) {
 
 	<!-- Main wrapper -->
 	<div class="wrapper" id="wrapper">
+
 		<!-- Header -->
-		<header id="wn__header" class="oth-page header__area header__absolute sticky__header">
+		<header id="wn__header" class="header__area header__absolute sticky__header">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-md-4 col-sm-4 col-7 col-lg-2">
+					<div class="col-md-6 col-sm-6 col-6 col-lg-2">
 						<div class="logo">
-							<a href="index.html">
-								<img src="images/logo/logo.png" alt="logo images">
+							<a href="index.php">
+								<!----> <img src="images/logo/logo.png" alt="logo images">
 							</a>
 						</div>
 					</div>
+
 					<div class="col-lg-8 d-none d-lg-block">
 						<nav class="mainmenu__nav">
 							<ul class="meninmenu d-flex justify-content-start">
-								<li class="drop with--one--item"><a href="index.html">Home</a></li>
-								<li class="drop"><a href="#">Shop</a>
-									<div class="megamenu mega03">
+								<li class="drop with--one--item"><a href="index.php">Home</a></li>
+								<li class="drop"><a href="./ShopRegistration1.php">Shop Registration</a>
+									<!--<div class="megamenu mega03">
 										<ul class="item item03">
 											<li class="title">Shop Layout</li>
-											<li><a href="shop-grid.html">Shop Grid</a></li>
+											<li><a href="shop-grid.html">Shop Registration</a></li>
 											<li><a href="single-product.html">Single Product</a></li>
 										</ul>
 										<ul class="item item03">
@@ -179,37 +89,49 @@ if (isset($_POST['btnShopUpdate'])) {
 											<li><a href="shop-grid.html">Books Under $5</a></li>
 											<li><a href="shop-grid.html">Bargain Books</a></li>
 										</ul>
-									</div>
+									</div>-->
 								</li>
-								<li class="drop"><a href="shop-grid.html">Books</a>
+								<li class="drop"><a href="shop-grid.html">Categories</a>
 									<div class="megamenu mega03">
 										<ul class="item item03">
-											<li class="title">Categories</li>
-											<li><a href="shop-grid.html">Biography </a></li>
-											<li><a href="shop-grid.html">Business </a></li>
-											<li><a href="shop-grid.html">Cookbooks </a></li>
-											<li><a href="shop-grid.html">Health & Fitness </a></li>
-											<li><a href="shop-grid.html">History </a></li>
+
+
+											<li class="title">New Categories
+
+
+											</li>
+											<li><?php
+												include("connection.php");
+												$sql = "Select * from tblshopregistration";
+												$catRes = mysqli_query($conn, $sql);
+												while ($catRow = mysqli_fetch_array($catRes)) {
+													//  echo '<li ><a href="index.php?cat='. $catRow['cat_id'] . '" >' . $catRow['ShopCategary'] . '</a></li>';
+												}
+												?></li>
+											<li><a href="shop-grid.html">Toys</a></li>
+											<li><a href="shop-grid.html">Food</a></li>
+											<li><a href="shop-grid.html">Gifts</a></li>
+											<li><a href="shop-grid.html">footwear</a></li>
 										</ul>
 										<ul class="item item03">
 											<li class="title">Customer Favourite</li>
-											<li><a href="shop-grid.html">Mystery</a></li>
-											<li><a href="shop-grid.html">Religion & Inspiration</a></li>
-											<li><a href="shop-grid.html">Romance</a></li>
-											<li><a href="shop-grid.html">Fiction/Fantasy</a></li>
-											<li><a href="shop-grid.html">Sleeveless</a></li>
+											<li><a href="shop-grid.html">Sports</a></li>
+											<li><a href="shop-grid.html">Travel</a></li>
+											<li><a href="shop-grid.html">Beauty</a></li>
+											<li><a href="shop-grid.html">Health</a></li>
+											<li><a href="shop-grid.html">Garden</a></li>
 										</ul>
 										<ul class="item item03">
-											<li class="title">Collections</li>
-											<li><a href="shop-grid.html">Science </a></li>
-											<li><a href="shop-grid.html">Fiction/Fantasy</a></li>
-											<li><a href="shop-grid.html">Self-Improvemen</a></li>
-											<li><a href="shop-grid.html">Home & Garden</a></li>
-											<li><a href="shop-grid.html">Humor Books</a></li>
+											<li class="title">Others</li>
+											<li><a href="shop-grid.html">Clothing</a></li>
+											<li><a href="shop-grid.html">Automotive</a></li>
+											<li><a href="shop-grid.html">Electronics</a></li>
+											<li><a href="shop-grid.html">grocery store</a></li>
+											<li><a href="shop-grid.html">department store</a></li>
 										</ul>
 									</div>
 								</li>
-								<li class="drop"><a href="shop-grid.html">Kids</a>
+								<!--<li class="drop"><a href="shop-grid.html">Kids</a>
 									<div class="megamenu mega02">
 										<ul class="item item02">
 											<li class="title">Top Collections</li>
@@ -248,26 +170,31 @@ if (isset($_POST['btnShopUpdate'])) {
 											<li><a href="team.html">Team Page</a></li>
 										</ul>
 									</div>
-								</li>
-								<li class="drop"><a href="blog.html">Blog</a>
-									<div class="megamenu dropdown">
+								</li>-->
+								<li class="drop"><a href="blog.html">My Profile</a>
+									<!--<div class="megamenu dropdown">
 										<ul class="item item01">
 											<li><a href="blog.html">Blog Page</a></li>
 											<li><a href="blog-details.html">Blog Details</a></li>
 										</ul>
-									</div>
+									</div>-->
 								</li>
+								<li><a href="myshops.php">My shop</a></li>
 								<li><a href="contact.html">Contact</a></li>
+								<li><a href="">logout</a></li>
 							</ul>
 						</nav>
 					</div>
-					<div class="col-md-8 col-sm-8 col-5 col-lg-2">
+
+					<div class="col-md-6 col-sm-6 col-6 col-lg-2">
 						<ul class="header__sidebar__right d-flex justify-content-end align-items-center">
-							<li class="shop_search"><a class="search__active" href="#"></a></li>
-							<li class="wishlist"><a href="#"></a></li>
-							<li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun">3</span></a>
-								<!-- Start Shopping Cart -->
-								<div class="block-minicart minicart__active">
+
+							<!--<li class="wishlist"><a href="#"></a></li>-->
+
+							<!--<li class="shopcart"><a class="cartbox_active" href="#"><span
+										class="product_qun">3</span></a>-->
+							<!-- Start Shopping Cart -->
+							<!--<div class="block-minicart minicart__active">
 									<div class="minicart-content-wrapper">
 										<div class="micart__close">
 											<span>close</span>
@@ -286,7 +213,9 @@ if (isset($_POST['btnShopUpdate'])) {
 											<div class="miniproduct">
 												<div class="item01 d-flex">
 													<div class="thumb">
-														<a href="product-details.html"><img src="images/product/sm-img/1.jpg" alt="product images"></a>
+														<a href="product-details.html"><img
+																src="images/product/sm-img/1.jpg"
+																alt="product images"></a>
 													</div>
 													<div class="content">
 														<h6><a href="product-details.html">Voyage Yoga Bag</a></h6>
@@ -304,7 +233,9 @@ if (isset($_POST['btnShopUpdate'])) {
 												</div>
 												<div class="item01 d-flex mt--20">
 													<div class="thumb">
-														<a href="product-details.html"><img src="images/product/sm-img/3.jpg" alt="product images"></a>
+														<a href="product-details.html"><img
+																src="images/product/sm-img/3.jpg"
+																alt="product images"></a>
 													</div>
 													<div class="content">
 														<h6><a href="product-details.html">Impulse Duffle</a></h6>
@@ -322,7 +253,9 @@ if (isset($_POST['btnShopUpdate'])) {
 												</div>
 												<div class="item01 d-flex mt--20">
 													<div class="thumb">
-														<a href="product-details.html"><img src="images/product/sm-img/2.jpg" alt="product images"></a>
+														<a href="product-details.html"><img
+																src="images/product/sm-img/2.jpg"
+																alt="product images"></a>
 													</div>
 													<div class="content">
 														<h6><a href="product-details.html">Compete Track Tote</a></h6>
@@ -344,11 +277,11 @@ if (isset($_POST['btnShopUpdate'])) {
 											<a class="cart__btn" href="cart.html">View and edit cart</a>
 										</div>
 									</div>
-								</div>
-								<!-- End Shopping Cart -->
-							</li>
-							<li class="setting__bar__icon"><a class="setting__active" href="#"></a>
-								<div class="searchbar__content setting__block">
+								</div>-->
+							<!-- End Shopping Cart -->
+							<li class="shop_search"><a class="search__active" href="#"></a>
+
+								<!--<div class="searchbar__content setting__block">
 									<div class="content-inner">
 										<div class="switcher-currency">
 											<strong class="label switcher-label">
@@ -363,8 +296,8 @@ if (isset($_POST['btnShopUpdate'])) {
 													</ul>
 												</div>
 											</div>
-										</div>
-										<div class="switcher-currency">
+										</div>-->
+								<!--<div class="switcher-currency">
 											<strong class="label switcher-label">
 												<span>Language</span>
 											</strong>
@@ -379,8 +312,8 @@ if (isset($_POST['btnShopUpdate'])) {
 													</ul>
 												</div>
 											</div>
-										</div>
-										<div class="switcher-currency">
+										</div>-->
+								<!--<div class="switcher-currency">
 											<strong class="label switcher-label">
 												<span>Select Store</span>
 											</strong>
@@ -395,8 +328,8 @@ if (isset($_POST['btnShopUpdate'])) {
 													</ul>
 												</div>
 											</div>
-										</div>
-										<div class="switcher-currency">
+										</div>-->
+								<!--<div class="switcher-currency">
 											<strong class="label switcher-label">
 												<span>My Account</span>
 											</strong>
@@ -411,61 +344,68 @@ if (isset($_POST['btnShopUpdate'])) {
 													</div>
 												</div>
 											</div>
-										</div>
-									</div>
-								</div>
-							</li>
-						</ul>
+										</div>-->
+
+
+
+
+
 					</div>
-				</div>
-				<!-- Start Mobile Menu -->
-				<div class="row d-none">
-					<div class="col-lg-12 d-none">
-						<nav class="mobilemenu__nav">
-							<ul class="meninmenu">
-								<li><a href="index.html">Home</a></li>
-								<li><a href="#">Pages</a>
-									<ul>
-										<li><a href="about.html">About Page</a></li>
-										<li><a href="portfolio.html">Portfolio</a>
-											<ul>
-												<li><a href="portfolio.html">Portfolio</a></li>
-												<li><a href="portfolio-details.html">Portfolio Details</a></li>
-											</ul>
-										</li>
-										<li><a href="my-account.html">My Account</a></li>
-										<li><a href="cart.html">Cart Page</a></li>
-										<li><a href="checkout.html">Checkout Page</a></li>
-										<li><a href="wishlist.html">Wishlist Page</a></li>
-										<li><a href="error404.html">404 Page</a></li>
-										<li><a href="faq.html">Faq Page</a></li>
-										<li><a href="team.html">Team Page</a></li>
-									</ul>
-								</li>
-								<li><a href="shop-grid.html">Shop</a>
-									<ul>
-										<li><a href="shop-grid.html">Shop Grid</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-									</ul>
-								</li>
-								<li><a href="blog.html">Blog</a>
-									<ul>
-										<li><a href="blog.html">Blog Page</a></li>
-										<li><a href="blog-details.html">Blog Details</a></li>
-									</ul>
-								</li>
-								<li><a href="contact.html">Contact</a></li>
-							</ul>
-						</nav>
+
+					<!-- Start Mobile Menu -->
+					<div class="row d-none">
+						<div class="col-lg-12 d-none">
+							<nav class="mobilemenu__nav">
+								<ul class="meninmenu">
+									<li><a href="index.html">Home</a></li>
+									<li><a href="#">Shop Registration</a>
+									</li>
+
+
+									<li><a href="shop-grid.html">Categories</a>
+
+										<ul>
+
+											<li><?php
+												include("connection.php");
+												$sql = "Select * from categorytable";
+												$catRes = mysqli_query($conn, $sql);
+												while ($catRow = mysqli_fetch_array($catRes)) {
+													echo '<li ><a href="index.php?cat=' . $catRow['cat_id'] . '" >' . $catRow['cat_name'] . '</a></li>';
+												}
+												?></li>
+											<li><a href="shop-grid.html">Toys</a></li>
+											<li><a href="shop-grid.html">Food</a></li>
+											<li><a href="shop-grid.html">Gifts</a></li>
+											<li><a href="shop-grid.html">footwear</a></li>
+											<li><a href="shop-grid.html">Sports</a></li>
+											<li><a href="shop-grid.html">Travel</a></li>
+											<li><a href="shop-grid.html">Beauty</a></li>
+											<li><a href="shop-grid.html">Health</a></li>
+											<li><a href="shop-grid.html">Garden</a></li>
+											<li><a href="shop-grid.html">Clothing</a></li>
+											<li><a href="shop-grid.html">Automotive</a></li>
+											<li><a href="shop-grid.html">Electronics</a></li>
+											<li><a href="shop-grid.html">grocery store</a></li>
+											<li><a href="shop-grid.html">department store</a></li>
+										</ul>
+									</li>
+									<li><a href="">My Profile</a></li>
+									<li><a href="myshops.php">My Shop</a></li>
+									<li><a href="contact.html">Contact</a></li>
+									<li><a href="">Logout</a></li>
+								</ul>
+							</nav>
+						</div>
 					</div>
+					<!-- End Mobile Menu -->
+					<div class="mobile-menu d-block d-lg-none">
+					</div>
+					<!-- Mobile Menu -->
 				</div>
-				<!-- End Mobile Menu -->
-				<div class="mobile-menu d-block d-lg-none">
-				</div>
-				<!-- Mobile Menu -->
-			</div>
 		</header>
 		<!-- //Header -->
+
 		<!-- Start Search Popup -->
 		<div class="box-search-content search_active block-bg close__top">
 			<form id="search_mini_form" class="minisearch" action="#">
@@ -530,6 +470,7 @@ if (isset($_POST['btnShopUpdate'])) {
 			// echo '	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
 			// 	Add More Images to Shop
 			// </button>';
+			echo '<a href="Add_More_Shop_Images.php" class="btn btn-info" role="button">Add More Images to Shop</a>';
 
 			// echo "<script>alert('Shop Registered Successfully! Want to add more Image to shop?')</script>";
 			/*?> <button  onclick="funAddMoreShopImgs()">Click Here to Add more Images</button> <?php	*/
@@ -548,7 +489,7 @@ if (isset($_POST['btnShopUpdate'])) {
 					<div class="col-lg-6 col-12">
 						<div class="my_account_wrapper">
 							<h3 class="account__title" align="center">Shop Registration</h3>
-							<form action="ShopRegistration1.php" method="POST" enctype="multipart/form-data">
+							<form action = "phpShop.php" method="POST" enctype="multipart/form-data">
 								<div class="account__form">
 									<div class="input__box">
 										<label>Shop Name <span>*</span></label>
@@ -558,33 +499,29 @@ if (isset($_POST['btnShopUpdate'])) {
 									<div class="input__box">
 										<label>Shop Phone Number<span>*</span></label>
 										<input type="tel" minlength="10" maxlength="14" placeholder="Please include your Country Code like +91 xxxxxxxxxx" name="txtShopPhoneNumber">
-
-
 									</div>
+
 									<div class="input__box">
 										<label>Address<span>*</span></label>
 										<input type="text" placeholder="Street address" name="txtShopAddress">
 
 									</div>
 
-
-									<div class="input__box">
-										<label>Postcode / ZIP <span>*</span></label>
-										<input type="number" name="txtShopPostcode">
-
-									</div>
-
-
 									<!-- <div class="input__box">
 											<label>Location<span>*</span></label>
 											<input type="text">
 										</div> -->
 									<div class="input__box">
-										<label>Location<span>*</span></label>
+										<label>City<span>*</span></label>
 										<input type="text" name="txtShopLocation">
 
 									</div>
 
+									<div class="input__box">
+										<label>Postcode / ZIP <span>*</span></label>
+										<input type="tel" maxlength="6" name="txtShopPostcode">
+
+									</div>
 
 									<!--
 														<div class="input__box">
@@ -607,7 +544,7 @@ if (isset($_POST['btnShopUpdate'])) {
 									<div class="input__box">
 										<label>Shop Description <span>*</span></label>
 										<!-- <input type="textarea" rows> -->
-										<textarea rows="4" cols="120" name="txtShopDescription"></textarea>
+										<textarea rows="4" cols="120" name="txtShopDescription"></textarea maxlength="500">
 										<small> Max 500 words. </small>
 									</div>
 
@@ -671,7 +608,7 @@ if (isset($_POST['btnShopUpdate'])) {
 									</div>
 
 									<div class="form__btn" style="padding:3%" align="center">
-										<button type="submit" name="submit" value="submit">Submit</button>
+										<button type="submit" name="btnShopRegistration" value="Register">Register</button>
 									</div>
 
 								</div>
@@ -684,9 +621,7 @@ if (isset($_POST['btnShopUpdate'])) {
 		</section>
 	</div>
 	</div>
-	<div class="col-lg-6 col-12">
 
-	</div>
 	</div>
 	</section>
 
