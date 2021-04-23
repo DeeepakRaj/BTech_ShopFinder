@@ -79,7 +79,7 @@ if (isset($_POST['btnShopUpdate'])) {
 
 		$_SESSION['success'] = 'Shop Registered!';
 		echo "<script>alert('Shop Registered Successfully! Want to add more Image to shop?');</script>";
-		header('Location:Add_More_Shop_Images.php');
+		#header('Location:Add_More_Shop_Images.php');
 	} else {
 		#echo 'Line 34';
 
