@@ -2,8 +2,6 @@
 
 	include ('includes/header.php');
 	include ('includes/navbar.php');
-
-
 ?>
 		
 		<!-- Start BEst Seller Area -->
