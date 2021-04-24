@@ -167,7 +167,7 @@
 										</ul>
 									</div>-->
 								</li>
-								<li><a href="myshops.php">My shop</a></li>
+								<li><a href="myshop3.php">My shop</a></li>
 								<li><a href="contact.html">Contact</a></li>
 								<li><a href="">logout</a></li>
 							</ul>
@@ -378,7 +378,7 @@
 										</ul>
 									</li>
 									<li><a href="">My Profile</a></li>
-									<li><a href="myshops.php">My Shop</a></li>
+									<li><a href="myshop3.php">My Shop</a></li>
 									<li><a href="contact.html">Contact</a></li>
 									<li><a href="">Logout</a></li>
 								</ul>

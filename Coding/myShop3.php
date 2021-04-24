@@ -201,20 +201,27 @@ require_once 'connection.php';
 						
 								<div class="form__btn" style="padding:3%" align="center" >
                                     <?php
-					
 
+										
                                         $query = "SELECT * FROM tblshopregistration";
                                         $result = mysqli_query($conn, $query);
                                         while($rows = mysqli_fetch_array($result))
                                         {
                                             $_SESSION['shopId']=$rows['SysId'];
-                                            // echo $_SESSION['shopId'];    
+                                            //  echo $_SESSION['shopId'];
+
+											
+                                  
+
+											//echo '<script>alert("$_SESSION['shopId']")</script>';    
                                     }                          
                                     ?>
 
-									<input type="button" class="btn" onclick="location.href='deleteShop.php?shp_id=<?php echo $rows['SysId'];?> ';" value="Yes" />
+									
 
-                                    <input type="button" class="btn" onclick="location.href='myShop3?shp_id=<?php echo $rows['SysId'];?> ';" value="No" />
+									<input type="submit" class="btn" onclick="location.href='deleteShop.php?shp_id=<?php echo $rows['SysId'];?> ';" value="Yes" />
+
+                                    <input type="submit" class="btn" onclick="location.href='myShop3?shp_id=<?php echo $rows['SysId'];?> ';" value="No" />
 									
 								
 								</div>
@@ -249,21 +256,25 @@ require_once 'connection.php';
                                 $result = mysqli_query($conn, $query);
                                 while($rows = mysqli_fetch_array($result))
                                 {
-                                    $_SESSION['shopId']=$rows['SysId'];
+								  $_SESSION['shopId']=$rows['SysId'];
 									// echo $_SESSION['shopId'];                               
                             ?>
 
 					<div class="product product__style--3 col-lg-4 col-md-4 col-sm-9 col-12">
 						<div class="product__thumb">
+						
 							<a class="first__img" href="single-product.html"><img src="images/books/1.jpg"
 									alt="product image"></a>
 
 							<div class="hot__box">
 								<span class="hot-label">HOT</span>
+								
 
 							</div>
 						</div>
 						<div class="product__content content--center">
+						<!-- Shop ID Fetched from DB -->
+							
 							<h4><a href="single-product.html"><?php echo $rows['ShopName']; ?></a></h4>
 							<ul class="prize d-flex">
 								<li><?php echo $rows['ShopCategory']; ?></li>
@@ -276,7 +287,7 @@ require_once 'connection.php';
 											<h6><?php echo $rows['ShopAddress']; ?></h6>
 
 											<form action="myShops2Edit.php" method="POST">
-                                                <input type="button" class="btn" onclick="location.href='myShops2Edit.php?shp_id=<?php echo $rows['SysId'];?> ';" value="Edit" />
+                                                <input type="button" class="btn" name="btnShopEdit" onclick="location.href='myShops2Edit.php?shp_id=<?php echo $rows['SysId'];?> ';" value="Edit" />
                                                     
                                                 <button type="button" class="btn" data-toggle="modal" data-target="#shopDeleteModal">
 												Delete

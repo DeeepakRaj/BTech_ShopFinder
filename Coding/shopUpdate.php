@@ -1,27 +1,52 @@
 <?php
-    session_start();
+
+session_start();
+// echo 'Hello';
 require_once 'connection.php';
 
-        // fetching Data from DB
-    if(isset($_GET['shp_id']))
-    {
-        $shopUpdateId =$_GET['shp_id'];
-        $shopUpdateId =$_SESSION['shopId'];
-    //cho $shopEditId;
+
+// fetching Data from DB
+if (isset($_GET['shp_id'])) {
+	$shopEditId = $_GET['shp_id'];
+	// $shopEditId =$_SESSION['shopId'];
+	//echo $shopEditId;
+
+
+
+	$query = "SELECT * FROM `tblshopregistration` where SysId = $shopEditId";
+	$query_run = mysqli_query($conn, $query);
+} else {
+	echo '<script>
+            alert("Edit id NOT Fetched!");
+          </script>';
+}
+
+//     session_start();
+// require_once 'connection.php';
+
+//         // fetching Data from DB
+//     if(isset($_GET['shp_id']))
+//     {
+//         $shopUpdateId =$_GET['shp_id'];
+//         //$shopUpdateId =$_SESSION['shopId'];
+    
     
 
 
-     $query = "SELECT * FROM `tblshopregistration` where SysId = $shopUpdateId";
-     $query_run = mysqli_query($conn,$query);
+//      $query = "SELECT * FROM `tblshopregistration` where SysId = $shopUpdateId";
+//      $query_run = mysqli_query($conn,$query);
+//      echo '<script>
+//                 alert("Updated shop ID  Fetched");
+//               </script>';
 
-    }
-    // else
-    // {
-    //     echo '<script>
-    //             alert("Edit Button Not Clicked!");
-    //           </script>';
+//     }
+//     else
+//     {
+//         echo '<script>
+//                 alert("Updated shop ID not Fetched");
+//               </script>';
         
-    // }
+//     }
 
      $shopCatSQL = "SELECT * FROM tblcategorytable";
      $shopCat = mysqli_query($conn, $shopCatSQL);
@@ -43,7 +68,7 @@ require_once 'connection.php';
         $ShopDuration = $conn->real_escape_string($_POST['optShopDuration']);
         // adding image
         #$ShopImg1 =$conn->real_escape_string('../images/registerShopImages/shopMainImg'.$_FILES['txtShopImg1']['name']);
-        $ShopImg1 = $_FILES['txtShopImg1'];
+        $ShopImg1 = $_POST['txtShopImg1'];
 
         $query = "UPDATE tblshopregistration SET ShopName = '$ShopName', 
                                                  ShopPhone = '$ShopPhoneNumber', 
@@ -55,9 +80,10 @@ require_once 'connection.php';
                                                  ShopTime = '$ShopTiming', 
                                                  ShopDuration = '$ShopDuration', 
                                                  ShopImg1 = '$ShopImg1' 
-                WHERE SysId = $shopUpdateId ";
+                WHERE SysId = '$shopUpdateId' ";
 
-        $query = "UPDATE `tblshopregistration` SET `ShopName`=$ShopName,`ShopPhone`=$ShopPhoneNumber,`ShopAddress`=$ShopAddress,`ShopPinCode`=$ShopPinCode,`ShopLocation`=$ShopLocation,`ShopDescription`=$ShopDescription,`ShopCategory`=$ShopCategory,`ShopTime`=$ShopTiming,`ShopDuration`=$ShopDuration,`ShopImg1`=$ShopImg1 WHERE SysId = $shopUpdateId";
+        // $query = "UPDATE `tblshopregistration` SET `ShopName`=$ShopName,`ShopPhone`=$ShopPhoneNumber,`ShopAddress`=$ShopAddress,`ShopPinCode`=$ShopPinCode,`ShopLocation`=$ShopLocation,`ShopDescription`=$ShopDescription,`ShopCategory`=$ShopCategory,`ShopTime`=$ShopTiming,`ShopDuration`=$ShopDuration,`ShopImg1`=$ShopImg1 WHERE 'SysId' = $shopUpdateId";
+        
         echo $ShopName;?> <br> <?php
         echo $ShopPhoneNumber; ?> <br> <?php
         echo $ShopAddress;?> <br> <?php
@@ -68,7 +94,7 @@ require_once 'connection.php';
         echo $ShopTiming; ?> <br> <?php
         echo $ShopDuration; ?> <br> <?php
         echo $ShopImg1;?> <br> <?php
-        echo $shopUpdateId;
+        echo $shopEditId;
     
 
         $query_run = mysqli_query($conn,$query);

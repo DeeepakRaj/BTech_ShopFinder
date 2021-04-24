@@ -3,24 +3,23 @@ session_start();
 // echo 'Hello';
 require_once 'connection.php';
 
+
 // fetching Data from DB
 if (isset($_GET['shp_id'])) {
 	$shopEditId = $_GET['shp_id'];
-	//$shopEditId =$_SESSION['shopId'];
-	//cho $shopEditId;
+	// $shopEditId =$_SESSION['shopId'];
+	//echo $shopEditId;
 
 
 
 	$query = "SELECT * FROM `tblshopregistration` where SysId = $shopEditId";
 	$query_run = mysqli_query($conn, $query);
+} else {
+	echo '<script>
+            alert("Edit id NOT Fetched!");
+          </script>';
 }
-// else
-// {
-//     echo '<script>
-//             alert("Edit Button Not Clicked!");
-//           </script>';
 
-// }
 
 $shopCatSQL = "SELECT * FROM tblcategorytable";
 $shopCat = mysqli_query($conn, $shopCatSQL);
@@ -448,16 +447,16 @@ $shopCat = mysqli_query($conn, $shopCatSQL);
 				// 	 /*
 				?> <button  onclick="funAddMoreShopImgs()">Click Here to Add more Images</button> <?php
 
-																											// 	unset($_SESSION['success']);
-																											// }
-																											// else
-																											// {
-																											// 	echo '<h1 class="bg-danger text-white" align="center"> '.$_SESSION['status'].' </h1>';
-																											// 	unset($_SESSION['status']);
+																									// 	unset($_SESSION['success']);
+																									// }
+																									// else
+																									// {
+																									// 	echo '<h1 class="bg-danger text-white" align="center"> '.$_SESSION['status'].' </h1>';
+																									// 	unset($_SESSION['status']);
 
-																											// }
+																									// }
 
-																											?> -->
+																									?> -->
 		<!-- Start My Account Area -->
 		<section class="my_account_area pt--80 pb--55 bg--white">
 			<div class="container">
@@ -492,7 +491,7 @@ $shopCat = mysqli_query($conn, $shopCatSQL);
 
 											<div class="input__box">
 												<label>Postcode / ZIP <span>*</span></label>
-												<input type="tel" maxlength="6" name="txtShopPostcode" value="<?php echo $row['ShopPhone'] ?>">
+												<input type="tel" maxlength="6" name="txtShopPostcode" value="<?php echo $row['ShopPinCode'] ?>">
 
 											</div>
 
@@ -505,185 +504,231 @@ $shopCat = mysqli_query($conn, $shopCatSQL);
 											<div class="input__box">
 												<label>Shop Description <span>*</span></label>
 												<!-- <input type="textarea" rows> -->
-												<textarea rows="4" cols="120" name="txtShopDescription"></textarea value = "<?php echo $row['ShopDescription'] ?>">
-                                                    <small> Max 500 words. </small>
-                                                </div>
+												<textarea rows="4" cols="120" name="txtShopDescription"> <?php echo $row['ShopDescription'] ?> </textarea>
+												<small> Max 500 words. </small>
+											</div>
+<!-- 										
+											<div class="input__box">
+												<label>Shop Category<span>*</span></label>
+												<select class="select__option" name="optShopCategory" value=""> -->
+												
 
-                                                <div class="input__box">
-                                                    <label>Shop Category<span>*</span></label>
-                                                    <select class="select__option"   name ="optShopCategory" value = "<?php echo $row['ShopCategory'] ?>">
-                                                        
 
-                                                        <!-- YOUTUBE LINK -->
-                                                        <!-- https://www.youtube.com/watch?v=V8sIWh_sdvs&list=RDCMUCS3W5vFugqi6QcsoAIHcMpw&start_radio=1&rv=V8sIWh_sdvs&t=148&ab_channel=1BestCsharpblog -->
+													<!-- YOUTUBE LINK -->
+													<!-- https://www.youtube.com/watch?v=V8sIWh_sdvs&list=RDCMUCS3W5vFugqi6QcsoAIHcMpw&start_radio=1&rv=V8sIWh_sdvs&t=148&ab_channel=1BestCsharpblog -->
 
-                                                        <option>Select a Category</option>
+													<!-- <option>Select a Category</option>
                                                         <option>Clothing</option>
                                                         <option>Cosmetics</option>
                                                         <option>Electronic</option>
                                                         <option>Food</option>
                                                         <option>General Store</option>
                                                         <option>Hardware</option>
-                                                        <option>Other</option>
-                                                    </select>
+                                                        <option>Other</option> -->
+												<!-- </select>
 
-                                                    <!-- <div class="input__box">
+
+												 <div class="input__box">
                                                         <label>Specify if Other<span>*</span></label>
                                                         <input type="text" name ="txtOtherShopCategory">
-                                                    </div> -->
+                                                    </div> 
 
-                                                </div>
+											</div>
+											 -->
+											<div class="input__box">
+												<label>Shop Category<span>*</span></label>
+												<select class="select__option" name="optShopCategory">
+													<option value="" > Select Shop Category </option>
+													<?php while ($rowShopCat = mysqli_fetch_array($shopCat)) :; ?>
+														<option><?php echo $rowShopCat['CatName']; ?></option>
+													<?php endwhile; ?>
 
-                                                <div class="input__box ">
-                                                    <label>Shop Timing <span>*</span></label>
-                                                    <!-- <input type="text"> -->
-                                                    <input type="text" min="08:00" max="23:00"   name ="txtShopTiming" placeholder="8:00 AM - 8:00 PM, Mon - Sat" value = "<?php echo $row['ShopTime'] ?>">
-                                                    <!-- <class="select__option" name ="lstShopOpeningDays"> -->
-                                                        
-                                                    <div class="input__box ">
-                                                        <small>Shop hours are 8:00 am to 11:00 pm</small>
-                                                    </div>
-                                                </div>
+												</select>
+											</div>
+ <!-- Mayank Look into it  -->
+											<!-- <div class="input__box">
+												<label>Shop Category2<span>*</span></label>
+												<select class="select__option" name="optShopCategory">
+													
+													<?php
+													/*	$shopCatQuery = "SELECT * FROM tblcategorytable";
+														
+														$shopCatQuery_run = mysqli_query($conn, $shopCatQuery);
+														$shopCatQueryRowCount = mysqli_num_rows($shopCatQuery_run);
 
-                                                
+														for($i = 1; $i <= $shopCatQueryRowCount; $i++)
+														{
+															$shopCatRow = mysqli_fetch_array($shopCatQuery_run);
+															?>
+															<option value="<?php echo $shopCatRow["CatName"] ?>">
+															
+															<?php
+																if($query_run['ShopCategory'] == $shopCatQuery_run['CatName'])
+																{
+																	echo "Selected";
+																}
+															?>
+															
+															<?php echo $shopCatRow["CatName"] ?></option>
+														<?php
+														} */
+														?>
 
-                                                <div class="input__box">
-                                                    <label>Shop Duration<span>*</span></label>
-                                                    <select class="select__option"   name ="optShopDuration" value ="<?php echo $row['ShopDuration'] ?>">
-                                                        <option>Select a Duration</option>
-                                                        <option>Permanent</option>
-                                                        <option>Temporary</option>
-                                                        <option>Event </option>
-                                                        </option>Sessional</option>
-                                                        <option>Tent</option>
-                                                    </select>
-                                                </div>
+												</select>
+											</div> -->
 
-                                                <div class="input__box">
-                                                    <label>Shop Image <span>*</span></label>
-                                                    <!-- <input type="text"> -->
-                                                    <input type="file"  name ="txtShopImg1" value="<?php echo $row['ShopImg1'] ?>">
-                                                    <small> This image will be used as the Primary Shop image</small>
-                                                </div>
+												<div class="input__box ">
+													<label>Shop Timing <span>*</span></label>
+													<!-- <input type="text"> -->
+													<input type="text" min="08:00" max="23:00" name="txtShopTiming" placeholder="8:00 AM - 8:00 PM, Mon - Sat" value="<?php echo $row['ShopTime'] ?>">
+													<!-- <class="select__option" name ="lstShopOpeningDays"> -->
 
-
-												<div class="form__btn" style="padding:3%" align="center"  >
-													<button type = "submit" name="btnShopUpdate" value="update" onclick="location.href='shopUpdate.php?shp_id=<?php echo $rows['SysId']; ?>  ';">Update</button>
+													<div class="input__box ">
+														<small>Shop hours are 8:00 am to 11:00 pm</small>
+													</div>
 												</div>
 
-                                                <?php
-											}
-										} else {
-											echo 'No DATA';
+
+
+												<div class="input__box">
+													<label>Shop Duration<span>*</span></label>
+													<select class="select__option" name="optShopDuration" value="<?php echo $row['ShopDuration'] ?>">
+														<option>Select a Duration</option>
+														<option>Permanent</option>
+														<option>Temporary</option>
+														<option>Event </option>
+														</option>Sessional</option>
+														<option>Tent</option>
+													</select>
+												</div>
+
+												<div class="input__box">
+													<label>Shop Image <span>*</span></label>
+													<!-- <input type="text"> -->
+													<input type="text" name="txtShopImg1" value="<?php echo $row['ShopImg1'] ?>">  </input>
+													<small> This image will be used as the Primary Shop image</small>
+												</div>
+
+
+												<div class="form__btn" style="padding:3%" align="center">
+													<button type="submit" name="btnShopUpdate" value="update" onclick="location.href='shopUpdate.php?shp_id=<?php echo $rows['SysId']; ?>  ';">Update</button>
+												</div>
+
+										<?php
 										}
-												?>
+									} 
+									else 
+									{
+										echo 'No DATA';
+									}
+										?>
 
-                                    </div>
-                                </form>
-							</div>
+											</div>
+							</form>
 						</div>
-
 					</div>
+
 				</div>
-			</section>
-		</div>
-		</div>
-        <!-- Modal to Update Shop -->
-            <div class="modal fade" id="shopUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Shop Updated!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <?php
-
-
-							?>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-		</div>
+			</div>
 		</section>
-
-		
-		<!-- End My Account Area -->
-		<!-- Footer Area -->
-		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
-			<div class="footer-static-top">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="footer__widget footer__menu">
-								<div class="ft__logo">
-									<a href="index.php">
-										<img src="images/logo/3.png" alt="logo">
-									</a>
-									<p>There are many variations of passages of Lorem Ipsum available, but the majority have
-										suffered duskam alteration variations of passages</p>
-								</div>
-								<div class="footer__content">
-									<ul class="social__net social__net--2 d-flex justify-content-center">
-										<li><a href="#"><i class="bi bi-facebook"></i></a></li>
-										<li><a href="#"><i class="bi bi-google"></i></a></li>
-										<li><a href="#"><i class="bi bi-twitter"></i></a></li>
-										<li><a href="#"><i class="bi bi-linkedin"></i></a></li>
-										<li><a href="#"><i class="bi bi-youtube"></i></a></li>
-									</ul>
-									<ul class="mainmenu d-flex justify-content-center">
-										<li><a href="index.php">Trending</a></li>
-										<li><a href="index.php">Best Seller</a></li>
-										<li><a href="index.php">All Product</a></li>
-										<li><a href="index.php">Wishlist</a></li>
-										<li><a href="index.php">Blog</a></li>
-										<li><a href="index.php">Contact</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
+	</div>
+	</div>
+	<!-- Modal to Update Shop -->
+	<div class="modal fade" id="shopUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Shop Updated!</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-			</div>
-			<div class="copyright__wrapper">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-12">
-							<div class="copyright">
-								<div class="copy__right__inner text-left">
-									<p>Copyright <i class="fa fa-copyright"></i> <a href="https://freethemescloud.com/">Free
-											themes Cloud.</a> All Rights Reserved</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12">
-							<div class="payment text-right">
-								<img src="images/icons/payment.png" alt="" />
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-		<!-- //Footer Area -->
+				<div class="modal-body">
+					<?php
 
+
+					?>
+				</div>
+
+			</div>
 		</div>
-		<!-- //Main wrapper -->
+	</div>
+	</div>
+	</section>
 
-		<!-- JS Files -->
-		<script src="js/vendor/jquery-3.2.1.min.js"></script>
-		<script src="js/popper.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/plugins.js"></script>
-		<script src="js/active.js"></script>
- 
-		
 
-	</body>
+	<!-- End My Account Area -->
+	<!-- Footer Area -->
+	<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
+		<div class="footer-static-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="footer__widget footer__menu">
+							<div class="ft__logo">
+								<a href="index.php">
+									<img src="images/logo/3.png" alt="logo">
+								</a>
+								<p>There are many variations of passages of Lorem Ipsum available, but the majority have
+									suffered duskam alteration variations of passages</p>
+							</div>
+							<div class="footer__content">
+								<ul class="social__net social__net--2 d-flex justify-content-center">
+									<li><a href="#"><i class="bi bi-facebook"></i></a></li>
+									<li><a href="#"><i class="bi bi-google"></i></a></li>
+									<li><a href="#"><i class="bi bi-twitter"></i></a></li>
+									<li><a href="#"><i class="bi bi-linkedin"></i></a></li>
+									<li><a href="#"><i class="bi bi-youtube"></i></a></li>
+								</ul>
+								<ul class="mainmenu d-flex justify-content-center">
+									<li><a href="index.php">Trending</a></li>
+									<li><a href="index.php">Best Seller</a></li>
+									<li><a href="index.php">All Product</a></li>
+									<li><a href="index.php">Wishlist</a></li>
+									<li><a href="index.php">Blog</a></li>
+									<li><a href="index.php">Contact</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="copyright__wrapper">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-12">
+						<div class="copyright">
+							<div class="copy__right__inner text-left">
+								<p>Copyright <i class="fa fa-copyright"></i> <a href="https://freethemescloud.com/">Free
+										themes Cloud.</a> All Rights Reserved</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-12">
+						<div class="payment text-right">
+							<img src="images/icons/payment.png" alt="" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- //Footer Area -->
+
+	</div>
+	<!-- //Main wrapper -->
+
+	<!-- JS Files -->
+	<script src="js/vendor/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/active.js"></script>
+
+
+
+</body>
 
 
 </html>

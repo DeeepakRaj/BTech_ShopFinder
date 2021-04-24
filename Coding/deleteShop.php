@@ -1,10 +1,12 @@
 <?php
+    session_start();
 
     require_once 'connection.php';
 
     if(isset($_GET['shp_id']))
     {
         $shopDeleteId =$_GET['shp_id'];
+        echo $_GET['shp_id'];
         
             // $id = $rows['SysId'];
                     
@@ -37,9 +39,6 @@
     echo "<script>alert('$message');</script>";
 }
   
-  
-// Function call
-
   
 
 

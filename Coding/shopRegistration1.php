@@ -179,7 +179,7 @@
 										</ul>
 									</div>-->
 								</li>
-								<li><a href="myshops.php">My shop</a></li>
+								<li><a href="myshop3.php">My shop</a></li>
 								<li><a href="contact.html">Contact</a></li>
 								<li><a href="">logout</a></li>
 							</ul>
@@ -391,7 +391,7 @@
 										</ul>
 									</li>
 									<li><a href="">My Profile</a></li>
-									<li><a href="myshops.php">My Shop</a></li>
+									<li><a href="myshop3.php">My Shop</a></li>
 									<li><a href="contact.html">Contact</a></li>
 									<li><a href="">Logout</a></li>
 								</ul>
@@ -552,7 +552,7 @@
 										<label>Shop Category<span>*</span></label>
 										<select class="select__option" name="optShopCategory">
 											<?php while ($row1 = mysqli_fetch_array($shopCat)) :; ?>
-												<option value="<?php echo $row1[0]; ?>"><?php echo $row1[1]; ?></option>
+												<option><?php echo $row1[1]; ?></option>
 											<?php endwhile; ?>
 
 											<!-- YOUTUBE LINK -->
