@@ -1,11 +1,12 @@
 <?php
+    session_start();
 require_once 'connection.php';
 
         // fetching Data from DB
     if(isset($_GET['shp_id']))
     {
         $shopUpdateId =$_GET['shp_id'];
-        //$shopEditId =$_SESSION['shopId'];
+        $shopUpdateId =$_SESSION['shopId'];
     //cho $shopEditId;
     
 
@@ -42,15 +43,46 @@ require_once 'connection.php';
         $ShopDuration = $conn->real_escape_string($_POST['optShopDuration']);
         // adding image
         #$ShopImg1 =$conn->real_escape_string('../images/registerShopImages/shopMainImg'.$_FILES['txtShopImg1']['name']);
-        
-        $ShopImg1 = getimagesize($_FILES["txtShopImg1"]["tmp_name"]);
+        $ShopImg1 = $_FILES['txtShopImg1'];
 
-        $query = "UPDATE tblshopregistration SET ShopName = '$ShopName', ShopPhone = '$ShopPhoneNumber', ShopAddress = '$ShopAddress', ShopPinCode = '$ShopPinCode', ShopLocation = '$ShopLocation', ShopDescription = '$ShopDescription', ShopCategory = '$ShopCategory', ShopTime = '$ShopTiming', ShopDuration = '$ShopDuration', ShopImg1 = '$ShopImg1' WHERE SysId = $shopUpdateId ";
+        $query = "UPDATE tblshopregistration SET ShopName = '$ShopName', 
+                                                 ShopPhone = '$ShopPhoneNumber', 
+                                                 ShopAddress = '$ShopAddress', 
+                                                 ShopPinCode = '$ShopPinCode', 
+                                                 ShopLocation = '$ShopLocation', 
+                                                 ShopDescription = '$ShopDescription', 
+                                                 ShopCategory = '$ShopCategory', 
+                                                 ShopTime = '$ShopTiming', 
+                                                 ShopDuration = '$ShopDuration', 
+                                                 ShopImg1 = '$ShopImg1' 
+                WHERE SysId = $shopUpdateId ";
 
-        $query_run = mysqli_query($query, $conn);
+        $query = "UPDATE `tblshopregistration` SET `ShopName`=$ShopName,`ShopPhone`=$ShopPhoneNumber,`ShopAddress`=$ShopAddress,`ShopPinCode`=$ShopPinCode,`ShopLocation`=$ShopLocation,`ShopDescription`=$ShopDescription,`ShopCategory`=$ShopCategory,`ShopTime`=$ShopTiming,`ShopDuration`=$ShopDuration,`ShopImg1`=$ShopImg1 WHERE SysId = $shopUpdateId";
+        echo $ShopName;?> <br> <?php
+        echo $ShopPhoneNumber; ?> <br> <?php
+        echo $ShopAddress;?> <br> <?php
+        echo $ShopPinCode; ?> <br> <?php
+        echo $ShopLocation; ?> <br> <?php
+        echo $ShopDescription; ?> <br> <?php
+        echo $ShopCategory;?> <br> <?php
+        echo $ShopTiming; ?> <br> <?php
+        echo $ShopDuration; ?> <br> <?php
+        echo $ShopImg1;?> <br> <?php
+        echo $shopUpdateId;
+    
+
+        $query_run = mysqli_query($conn,$query);
+        if($query_run)
+        {
+            echo "<script>alert('Query Executed!');</script>";
+        }
+        else
+        {
+            echo "<script>alert('Query NOT Executed!');</script>";
+        }
 
 
-        // echo "<script>alert('Hello');</script>";
+         
 
     }
 	else

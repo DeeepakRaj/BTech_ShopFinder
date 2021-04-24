@@ -77,25 +77,7 @@
                 }
             }
         
-        /*
-        $fileName = $ShopImg1['name'];
-        $filePath = $ShopImg1['tmp_name'];
-        $fileError = $ShopImg1['error'];
-
-        if($fileError == 0)
-        {
-            $fileDestination = 'images/registerShopImages/shopMainImg/'.$fileName;
-            echo "$fileDestination";
-
-            if(move_uploaded_file($fileName, $fileDestination))
-            {
-                echo "<script>alert('FILE Uploaded!');</script>";
-            }
-            else
-            {
-                echo "<script>alert('FILE NOT Uploaded!');</script>";   
-            }
-        */    
+          
 
              $query = "INSERT INTO tblshopregistration (ShopName, ShopPhone, ShopAddress, ShopPinCode, ShopLocation, ShopDescription, ShopCategory, ShopTime, ShopDuration, ShopImg1) VALUES ('$ShopName','$ShopPhoneNumber','$ShopAddress','$ShopPinCode','$ShopLocation','$ShopDescription','$ShopCategory','$ShopTiming', '$ShopDuration', '$target_file')";
             #echo 'Line 23';
@@ -142,7 +124,7 @@
 
 ?>
 <!-- 
-################################################################################################################################################################################################################################################################ -->
+########################################################################################################################################################################################ADD  MORE SHOP IMAGES##############################################################################-->
 
 <?php
 
