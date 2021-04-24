@@ -219,7 +219,7 @@ require_once 'connection.php';
 
 									
 
-									<input type="submit" class="btn" onclick="location.href='deleteShop.php?shp_id=<?php echo $rows['SysId'];?> ';" value="Yes" />
+									<input type="submit" class="btn" name="btnYesDeleteShop" onclick="location.href='deleteShop.php?shp_id=<?php echo $rows['SysId'];?> ';" value="Yes" />
 
                                     <input type="submit" class="btn" onclick="location.href='myShop3?shp_id=<?php echo $rows['SysId'];?> ';" value="No" />
 									
