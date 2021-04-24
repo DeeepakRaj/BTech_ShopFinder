@@ -470,7 +470,7 @@
 			// echo '	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
 			// 	Add More Images to Shop
 			// </button>';
-			echo '<a href="Add_More_Shop_Images.php" class="btn btn-info" role="button">Add More Images to Shop</a>';
+			echo '<a href="Add_More_Shop_Images.php" name="btnAddMoreShopImages" class="btn btn-info" role="button">Add More Images to Shop</a>';
 
 			// echo "<script>alert('Shop Registered Successfully! Want to add more Image to shop?')</script>";
 			/*?> <button  onclick="funAddMoreShopImgs()">Click Here to Add more Images</button> <?php	*/
