@@ -4,9 +4,74 @@ session_start();
 
  include 'connection.php';
 
-// echo"Hello!! \n Welcome to php.";
+ if(isset($_POST['submit'])) 
+    {
+        #echo 'Welcome to multiple images code section';
+
+        // //array for Valid Shop Image extension
+        $extension = array('jpeg','jpg','png','gif','tiff','psd','eps','ai','indd','raw');
+
+        foreach ($_FILES['txtshopImages']['tmp_name'] as $key => $value) 
+		{
+            $fileName = $_FILES['txtshopImages']['name'][$key];
+            $fileName_tmp = $_FILES['txtshopImages']['tmp_name'][$key];
+            echo '<br>';
+            //printing extension of files
+
+            $shopImgExt = pathinfo($fileName, PATHINFO_EXTENSION);
+
+        // //  $finalImg='';
+			$currentTime = time();
+            if(in_array($shopImgExt,$extension))
+            {
+				// echo'<script> alert("Valid extension of file") </script> ';
+                 if(!file_exists('images/registerShopImages/'.$fileName))
+                 {
+                    move_uploaded_file($fileName_tmp, 'images/registerShopImages/'.$fileName);
+                     $finalImg ="images/registerShopImages/" . $fileName;
+                 }
+                 else
+                 //if file exists then upload it with by appending current system time.
+                 {
+                 $fileName = str_replace('.','-',basename($fileName,$shopImgExt));
+                 $newFileName = $fileName.time().".".$shopImgExt;
+
+                 move_uploaded_file($fileName_tmp,'images/registerShopImages/'.$newFileName);
+                 $finalImg = "images/registerShopImages/" . $newFileName;              
+                 }  
+                 // insert query
+                 // $insertQry = "INSERT INTO `tblshopregistration`(`ShopImg1`, `ShopImg2`, `ShopImg3`, `ShopImg4`, `ShopImg5`) VALUES ($finalImg)";
+                 // mysqli_query($conn,$insertQry);
+
+                 //echo $finalImg;
+                
+                 // $insertQry = "INSERT INTO tblshopregistration (ShopImg1) VALUES ('$finalImg')";
+                
+                $id  = $_SESSION['shopId'];
+                 #echo $id;            
+
+                 $insertQry = "INSERT INTO tblshopimage (SrId,ImgName,ImgUrl) VALUES ('$id','$fileName','$finalImg')";
+
+                 $data=mysqli_query($conn,$insertQry);
+                 // echo 'Hello';
+                 // echo $shopId;
+
+                 #header('Location:index.php');
+            }
+            else
+            {
+                echo'<script> alert("Invalid extension of file") </script> ';
+            }
+        }
+    }
+    else
+    {   
+        #echo 'Multiple Image not NOT SET';
+
+    }
 
 ?>
+
 
 <!-- HTML CODE -->
 
@@ -412,7 +477,7 @@ session_start();
 											
 											<h3 class="account__title" alignment="center">Add More Shop  Images</h3>
 											
-											<form action="Add_More_Shop_Images.php" method="POST" enctype="multipart/form-data">
+											<form action="#" method="POST" enctype="multipart/form-data">
 												<div class="account__form">
 													<div class="input__box">
 														<label>Select Multi Shop Images <span>*</span></label>
@@ -423,8 +488,8 @@ session_start();
 														<small> You can ADD upto 5 five images </small>
 													</div>
                                                                                                         					        						
-													<div class="form__btn" style="padding:3%" align="center"  onclick="location.href='Shop Registration.html'">
-														<button name="submit" >Submit</button>
+													<div class="form__btn" style="padding:3%" align="center" >
+														<button type="submit" name="submit" value="submit" >Submit</button>
 														<button name="submit" style="margin-left:5%;" >Add it Later</button>
 													</div>
 
