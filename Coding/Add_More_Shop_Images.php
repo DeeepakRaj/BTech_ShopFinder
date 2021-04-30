@@ -21,7 +21,7 @@ session_start();
             $shopImgExt = pathinfo($fileName, PATHINFO_EXTENSION);
 
         // //  $finalImg='';
-			$currentTime = time();
+
             if(in_array($shopImgExt,$extension))
             {
 				// echo'<script> alert("Valid extension of file") </script> ';
@@ -47,7 +47,7 @@ session_start();
                 
                  // $insertQry = "INSERT INTO tblshopregistration (ShopImg1) VALUES ('$finalImg')";
                 
-                $id  = $_SESSION['shopId'];
+                $id  = 1;
                  #echo $id;            
 
                  $insertQry = "INSERT INTO tblshopimage (SrId,ImgName,ImgUrl) VALUES ('$id','$fileName','$finalImg')";

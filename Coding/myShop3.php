@@ -209,10 +209,6 @@ require_once 'connection.php';
                                         {
                                             $_SESSION['shopId']=$rows['SysId'];
                                             //  echo $_SESSION['shopId'];
-
-											
-                                  
-
 											//echo '<script>alert("$_SESSION['shopId']")</script>';    
                                     }                          
                                     ?>
